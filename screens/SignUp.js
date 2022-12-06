@@ -3,22 +3,18 @@ import{
     View,
     Text,
     TouchableOpacity,
-    TouchableWithoutFeedback,
     Image,
     TextInput,
-    Modal,
-    FlatList,
     KeyboardAvoidingView,
-    ScrollView,
-    Platform
 } from "react-native"
 import { LinearGradient } from 'expo-linear-gradient'
 
 import { COLORS, SIZES, FONTS, icons, images } from "../constants"
+import { NavigationContainer } from "@react-navigation/native";
 
-
-const SignUp = () => {
+const SignUp = ({navigation}) => {
     const [showPassword, setShowPassword] = React.useState(false)
+    const [modalVisible, setModalVisible] = React.useState(false)
 
     //Logotipo e titulo
     function renderLogo() {
@@ -26,42 +22,48 @@ const SignUp = () => {
             <View
                 style={{
                     flexDirection: 'column',
-                    marginTop: SIZES.padding * 20,
-                    height: 500,
+                    marginTop: SIZES.padding * 5,
                     alignItems: 'center',
                     justifyContent: 'center'
                 }}
             >
                 <Text style={{color: COLORS.white, ...FONTS.largeTitle }}>
-                    Finance Manager Instance
-                </Text>
-                <Text style={{color: COLORS.white, ...FONTS.h1 }}>
-                    Admnistrador de Finanças
-                </Text>
-                <Image
-                    source={images.coffeelogo}
-                    resizeMode="contain"
-                    style={{
-                        marginTop: SIZES.padding * -30,
-                        width: "40%"
-                    }}
-                />
+                    Cadastro de Usuário
+                </Text>  
             </View>
         )
     }
 
-    function renderLogin() {
+    function renderCredentials() {
         return (
             <View
                 style={{
-                    marginTop: SIZES.padding * -20,
+                    marginTop: SIZES.padding * 3,
                     marginHorizontal: SIZES.padding * 4,
                 }}
             >
-                {/* Full Name */}
-                <View>
+                {/* Usuario */}
+                <View style={{ marginTop: SIZES.padding * 2 }}>
                     <Text style={{color: COLORS.white, ...FONTS.h1 }}>
-                        Usuário
+                        Usuário:
+                    </Text>
+                    <TextInput
+                        style={{
+                            marginVertical: SIZES.padding,
+                            borderBottomColor: COLORS.white,
+                            borderBottomWidth: 1,
+                            height: 40,
+                            color: COLORS.white,
+                            ...FONTS.h2
+                        }}
+                        selectionColor={COLORS.white}
+                    />
+                </View>
+
+                {/* e-mail */}
+                <View style={{ marginTop: SIZES.padding * 2 }}>
+                    <Text style={{color: COLORS.white, ...FONTS.h1 }}>
+                        E-mail:
                     </Text>
                     <TextInput
                         style={{
@@ -79,7 +81,7 @@ const SignUp = () => {
                 {/* Password */}
                 <View style={{ marginTop: SIZES.padding * 2 }}>
                     <Text style={{ color: COLORS.white, ...FONTS.h1 }}>
-                        Senha
+                        Senha:
                     </Text>
                     <TextInput
                         style={{
@@ -113,6 +115,25 @@ const SignUp = () => {
                         />
                     </TouchableOpacity>
                 </View>
+
+                {/* Confirmar Senhas */}
+                <View style={{ marginTop: SIZES.padding * 2 }}>
+                    <Text style={{ color: COLORS.white, ...FONTS.h1 }}>
+                        Confirmar Senha:
+                    </Text>
+                    <TextInput
+                        style={{
+                            marginVertical: SIZES.padding,
+                            borderBottomColor: COLORS.white,
+                            borderBottomWidth: 1,
+                            height: 40,
+                            color: COLORS.white,
+                            ...FONTS.h2
+                        }}
+                        selectionColor={COLORS.white}
+                        secureTextEntry={!showPassword}
+                    />                  
+                </View>
             </View>
         )
     }
@@ -121,24 +142,6 @@ const SignUp = () => {
         return (
             <View style ={{alignItems: 'center',
             justifyContent: 'center'}}>
-                <TouchableOpacity
-                    style={{
-                        marginTop: SIZES.padding * 1.5,
-                        borderRadius: SIZES.radius / 1,
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                    }}
-                    onPress={() => console.log("Tela esqueci senha")}
-                >
-                    <Text style={{ 
-                        borderBottomColor: COLORS.white,
-                        borderBottomWidth: 1,
-                        color: COLORS.white,
-                        color: COLORS.white, ...FONTS.h3 }}>
-                            Esqueci minha Senha
-                    </Text>
-                </TouchableOpacity>
-
 
                 <TouchableOpacity
                     style={{
@@ -150,30 +153,11 @@ const SignUp = () => {
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}
-                    onPress={() => console.log("Home")}
+                    onPress={() => navigation.navigate("Start")}
                 >
                     <Text style={{ 
                         color: COLORS.white,
                         color: COLORS.white, ...FONTS.h1 }}>
-                            Entrar
-                    </Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    style={{
-                        marginTop: SIZES.padding * 3,
-                        height: 50,
-                        width: 100,
-                        backgroundColor: "#999",
-                        borderRadius: SIZES.radius / 1,
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                    }}
-                    onPress={() => console.log("Cadastrar")}
-                >
-                    <Text style={{ 
-                        color: COLORS.white,
-                        color: COLORS.white, ...FONTS.h4 }}>
                             Cadastrar
                     </Text>
                 </TouchableOpacity>
@@ -181,29 +165,6 @@ const SignUp = () => {
             
         )
     }
-
-    function renderGroup() {
-        return (
-            <View style={{ 
-                margin: SIZES.padding * 8,
-                alignItems: 'center',
-                justifyContent: 'flex-end'
-                }}>                   
-                    <Text style={{ 
-                        backgroundColor: "#000",
-                        borderColor: '#000',
-                        borderRadius: 10,
-                        color: COLORS.white,
-                        fontSize: 30,
-                        }}>
-                        {'  '}
-                        Midnight Coffee
-                        {'  '}
-                    </Text>
-            </View>
-        )
-    }
-
     
 // Background
 return(
@@ -216,10 +177,8 @@ return(
         >
             <View>
                 {renderLogo()}
-                {renderLogin()}
+                {renderCredentials()}
                 {renderButton()}
-                {renderGroup()}
-
             </View>
         </LinearGradient>
     </KeyboardAvoidingView>

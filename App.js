@@ -3,7 +3,9 @@ import { StyleSheet, Text, View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 
+import {Start} from "./screens"
 import {SignUp} from "./screens"
+import {Home} from "./screens"
 
 const theme = {
   ...DefaultTheme,
@@ -22,9 +24,11 @@ const App = () => {
             screenOptions={{
                 headerShown: false
             }}
-            initialRouteName={'SignUp'}
+            initialRouteName={'Start'}
         >
+            <Stack.Screen name="Start" component={Start} />
             <Stack.Screen name="SignUp" component={SignUp} />
+            <Stack.Screen name="Home" component={Home} />
         </Stack.Navigator>
     </NavigationContainer>
 )
