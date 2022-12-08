@@ -7,8 +7,7 @@ import{
     FlatList,
     TouchableOpacity,
     onPressHandler
-    
-    
+
 } from "react-native"
 import { LinearGradient } from 'expo-linear-gradient'
 import { COLORS, SIZES, FONTS, icons, images, styles } from "../constants"
@@ -52,6 +51,8 @@ function renderEntries() {
                     selectionColor={COLORS.white}
                 />
             </View>
+
+            
             
             <View style={{ marginTop: SIZES.padding * 2 }}>
                 <Text style={{color: COLORS.white, ...FONTS.h1 }}>
@@ -176,7 +177,7 @@ function renderButton() {
                     alignItems: 'center',
                     justifyContent: 'center'
                 }}
-                onPress={() => navigation.navigate("Entries")}
+                onPress={() => console.log("Entries")}
             >
                 <Text style={{ 
                     color: COLORS.white,
