@@ -1,8 +1,16 @@
 import React from "react";
 import{
     View,
-    Text
+    Text,
+    StyleSheet,
+    TextInput,
+    FlatList,
+    TouchableOpacity,
+    onPressHandler
+
 } from "react-native"
+import { LinearGradient } from 'expo-linear-gradient'
+import { COLORS, SIZES, FONTS, icons, images, styles } from "../constants"
 
 const list = [
     {

@@ -21,6 +21,7 @@ export const SIZES = {
 
     // font sizes
     largeTitle: 45,
+    title: 38,
     h1: 30,
     h2: 22,
     h3: 20,
@@ -38,6 +39,7 @@ export const SIZES = {
 
 export const FONTS = {
     largeTitle: { fontFamily: "Roboto", fontSize: SIZES.largeTitle, lineHeight: 55 },
+    title: { fontFamily: "Roboto", fontSize: SIZES.title, lineHeight: 55 },
     h1: { fontFamily: "Roboto", fontSize: SIZES.h1, lineHeight: 36 },
     h2: { fontFamily: "Roboto", fontSize: SIZES.h2, lineHeight: 30 },
     h3: { fontFamily: "Roboto", fontSize: SIZES.h3, lineHeight: 22 },
@@ -56,7 +58,7 @@ export const styles = StyleSheet.create({
     },
     list:{
         fontSize: 30,
-        color: COLORS.gray
+        color: COLORS.white
     },
     logoView:{
         flexDirection: 'column',

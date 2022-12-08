@@ -6,12 +6,13 @@ import{
     TouchableWithoutFeedback,
     Image,
     TextInput,
+    FlatList,
     Modal,
     KeyboardAvoidingView,
 } from "react-native"
 import { LinearGradient } from 'expo-linear-gradient'
 
-import { COLORS, SIZES, FONTS, icons, images } from "../constants"
+import { COLORS, SIZES, FONTS, icons, images, Profiles, RenderProfiles, styles } from "../constants"
 
 const Home = ({navigation}) => {
     const [modalVisible, setModalVisible] = React.useState(false)
@@ -125,7 +126,7 @@ const Home = ({navigation}) => {
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}
-                    onPress={() => console.log("botao1")}
+                    onPress={() => navigation.navigate("Goals")}
                 >
                     <Text style={{ 
                         
@@ -147,7 +148,7 @@ const Home = ({navigation}) => {
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}
-                    onPress={() => console.log("botao1")}
+                    onPress={() => navigation.navigate("Reports")}
                 >
                     <Text style={{ 
                         
@@ -191,7 +192,7 @@ const Home = ({navigation}) => {
                         alignItems: 'center',
                         justifyContent: 'center',                        
                     }}
-                    onPress={() => console.log("botao1")}
+                    onPress={() => navigation.navigate("Configs")}
                 >
                     <Text style={{ 
                         
@@ -201,6 +202,33 @@ const Home = ({navigation}) => {
                     </Text>
                 </TouchableOpacity>
             </View>
+            
+        )
+    }
+
+
+    function RenderProfiles( {data}){
+        return(
+            <TouchableOpacity style={{
+                flexDirection: 'row',
+                marginTop: SIZES.padding * 2,
+                alignItems: 'center',
+                justifyContent: 'center',                      
+            }}
+            onPress={() => console.log("Trocar perfil: "+data.name)}
+            >
+                <Image
+                    source={icons.user}
+                    resizeMode="contain"
+                    style={{
+                        width: 40,
+                        height: 40,
+                        tintColor: COLORS.white
+                    }}
+                />
+                <Text style={styles.list}>  {data.name}</Text>
+
+            </TouchableOpacity>
             
         )
     }
@@ -215,58 +243,44 @@ const Home = ({navigation}) => {
                 <TouchableWithoutFeedback
                     onPress={() => setModalVisible(false)}
                 >
-                    <View style={{ flex: 1, backgroundColor: "#111", alignItems: 'center', justifyContent: 'space-evenly'}}>
-                            
+                    <View style={{ flex: 1, backgroundColor: "#111", alignItems: 'center', justifyContent: 'center'}}>
+                           
                             <View
                                 style={{
-                                    marginTop: SIZES.padding * -20,
+                                    marginTop: SIZES.padding * 1,
                                     height: 600,
                                     width: SIZES.width * 0.9,
                                     backgroundColor: "#777",
                                     borderRadius: SIZES.radius,
                                     alignItems: 'center',
-                                    justifyContent: 'space-evenly'
+                                    justifyContent: 'center'
                                 }}
                             >
                                 <Text style={{ 
+                                        marginTop: SIZES.padding * 3,  
                                         marginLeft: SIZES.padding * 1.5, 
                                         color: COLORS.white,
-                                        ...FONTS.h1 }}>
+                                        ...FONTS.title }}>
                                 Selecione um perfil:
                                 </Text>
 
-                                <TouchableOpacity
-                                    style={{
-                                        flexDirection: 'row',
-                                        alignItems: "center",
-                                        marginTop: SIZES.padding * 6,
-                                        paddingHorizontal: SIZES.padding * 8
-                                    }}
-                                    onPress={() => setModalVisible(true)}
+                                <FlatList
+                                    data={Profiles.Profiles}
+                                    keyExtractor={(item) => String(item.id)}
+                                    showsVerticalScrollIndicator={false}
+                                    renderItem={ ({item}) => <RenderProfiles data={item}
+                                    style={styles.list}
+                                    />}
                                 >
-                                    <Image
-                                        source={icons.user}
-                                        resizeMode="contain"
-                                        style={{
-                                            width: 40,
-                                            height: 40,
-                                            tintColor: COLORS.white
-                                        }}
-                                    />
-
-                                    <Text style={{ 
-                                        borderBottomColor: COLORS.white,
-                                        borderBottomWidth: 1,
-                                        marginLeft: SIZES.padding * 1.5, 
-                                        color: COLORS.white,
-                                        ...FONTS.h1 }}>
-                                            Perfil
-                                    </Text>
-                                </TouchableOpacity>
-
+                                    <TouchableOpacity>
+    
+                                    </TouchableOpacity>
+                                </FlatList>
+                                      
+                                
                                 <TouchableOpacity
                                     style={{
-                                        marginTop: SIZES.padding * 10,
+                                        marginTop: SIZES.padding * 1,
                                         height: 60,
                                         width: 450,
                                         backgroundColor: "#333",
@@ -276,7 +290,7 @@ const Home = ({navigation}) => {
                                         alignItems: 'center',
                                         justifyContent: 'center',                        
                                     }}
-                                    onPress={() => console.log("botao1")}
+                                    onPress={() => navigation.navigate("AddProfile")}
                                 >
                                     <Text style={{ 
                                         color: COLORS.white, ...FONTS.h1 }}>
