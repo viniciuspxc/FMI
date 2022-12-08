@@ -24,24 +24,26 @@ const Start = ({navigation}) => {
             <View
                 style={{
                     flexDirection: 'column',
-                    marginTop: SIZES.padding * 20,
-                    height: 500,
+                    marginTop: 5,
+                    height: 300,
                     alignItems: 'center',
                     justifyContent: 'center'
                 }}
             >
-                <Text style={{color: COLORS.white, ...FONTS.largeTitle }}>
+                <Text style={{color: COLORS.white, fontSize: 25 }}>
                     Finance Manager Instance
                 </Text>
-                <Text style={{color: COLORS.white, ...FONTS.h1 }}>
-                    Admnistrador de Finanças
+                <Text style={{color: COLORS.white, fontSize: 20 }}>
+                    Administrador de Finanças
                 </Text>
                 <Image
                     source={images.coffeelogo}
                     resizeMode="contain"
                     style={{
-                        marginTop: SIZES.padding * -30,
-                        width: "40%"
+                        marginTop: 25,
+                        width: "40%",
+                        height: "45%",
+                        borderRadius: 200,
                     }}
                 />
             </View>
@@ -52,41 +54,43 @@ const Start = ({navigation}) => {
         return (
             <View
                 style={{
-                    marginTop: SIZES.padding * -20,
-                    marginHorizontal: SIZES.padding * 4,
+                    marginTop: -20,
+                    marginHorizontal: 10,
                 }}
             >
                 {/* Full Name */}
                 <View>
-                    <Text style={{color: COLORS.white, ...FONTS.h1 }}>
+                    <Text style={{color: COLORS.white, fontSize: 25 }}>
                         Usuário:
                     </Text>
                     <TextInput
                         style={{
-                            marginVertical: SIZES.padding,
+                            marginTop: 7,
+                            marginVertical: 0,
                             borderBottomColor: COLORS.white,
-                            borderBottomWidth: 1,
-                            height: 40,
+                            borderBottomWidth: 0.5,
+                            height: 30,
                             color: COLORS.white,
-                            ...FONTS.h2
+                            fontSize: 18
                         }}
                         selectionColor={COLORS.white}
                     />
                 </View>
 
                 {/* Password */}
-                <View style={{ marginTop: SIZES.padding * 2 }}>
-                    <Text style={{ color: COLORS.white, ...FONTS.h1 }}>
+                <View style={{ marginTop: 10 }}>
+                    <Text style={{ color: COLORS.white, fontSize: 25 }}>
                         Senha:
                     </Text>
                     <TextInput
                         style={{
-                            marginVertical: SIZES.padding,
+                            marginTop: 7,
+                            marginVertical: 0,
                             borderBottomColor: COLORS.white,
-                            borderBottomWidth: 1,
-                            height: 40,
+                            borderBottomWidth: 0.5,
+                            height: 30,
                             color: COLORS.white,
-                            ...FONTS.h2
+                            fontSize: 18
                         }}
                         selectionColor={COLORS.white}
                         secureTextEntry={!showPassword}
@@ -96,7 +100,7 @@ const Start = ({navigation}) => {
                             position: 'absolute',
                             right: 0,
                             bottom: 20,
-                            height: 30,
+                            height: 15,
                             width: 30
                         }}
                         onPress={() => setShowPassword(!showPassword)}
@@ -114,7 +118,7 @@ const Start = ({navigation}) => {
             </View>
         )
     }
-    
+
     function renderButton() {
         return (
             <View style ={{alignItems: 'center',
@@ -128,20 +132,20 @@ const Start = ({navigation}) => {
                     }}
                     onPress={() => setModalVisible(true)}
                 >
-                    <Text style={{ 
+                    <Text style={{
                         borderBottomColor: COLORS.white,
                         borderBottomWidth: 1,
                         color: COLORS.white,
-                        color: COLORS.white, ...FONTS.h3 }}>
-                            Esqueci minha Senha
+                        color: COLORS.white, fontSize: 15 }}>
+                            Esqueceu sua senha?
                     </Text>
-                    
+
                 </TouchableOpacity>
 
-                
+
                 <TouchableOpacity
                     style={{
-                        marginTop: SIZES.padding * 3,
+                        marginTop: 20,
                         height: 50,
                         width: 200,
                         backgroundColor: "#999",
@@ -151,7 +155,7 @@ const Start = ({navigation}) => {
                     }}
                     onPress={() => navigation.navigate("Home")}
                 >
-                    <Text style={{ 
+                    <Text style={{
                         color: COLORS.white,
                         color: COLORS.white, ...FONTS.h1 }}>
                             Entrar
@@ -160,24 +164,26 @@ const Start = ({navigation}) => {
 
                 <TouchableOpacity
                     style={{
-                        marginTop: SIZES.padding * 3,
+                        marginTop: 0,
                         height: 50,
-                        width: 100,
-                        backgroundColor: "#999",
+                        width: 300,
                         borderRadius: SIZES.radius / 1,
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}
                     onPress={() => navigation.navigate("SignUp")}
                 >
-                    <Text style={{ 
+                    <Text style={{
                         color: COLORS.white,
-                        color: COLORS.white, ...FONTS.h4 }}>
-                            Cadastrar
+                        fontSize: 15,
+                        borderBottomColor: COLORS.white,
+                        borderBottomWidth: 1,
+                    }}>
+                        Ainda não possui uma conta?
                     </Text>
                 </TouchableOpacity>
             </View>
-            
+
         )
     }
 
@@ -192,10 +198,10 @@ const Start = ({navigation}) => {
                     onPress={() => setModalVisible(false)}
                 >
                     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                            
+
                             <View
                                 style={{
-                                    marginTop: SIZES.padding * 20,
+                                    marginTop: 20,
                                     height: 250,
                                     width: SIZES.width * 0.9,
                                     backgroundColor: COLORS.white,
@@ -205,12 +211,12 @@ const Start = ({navigation}) => {
                                 }}
                             >
                                 <View>
-                                    <Text style={{color: COLORS.black, ...FONTS.h1 }}>
+                                    <Text style={{color: COLORS.black, fontSize: 18 }}>
                                         Insira seu e-mail para recuperação:
                                     </Text>
                                     <TextInput
                                         style={{
-                                            marginVertical: SIZES.padding,
+                                            marginVertical: 7,
                                             borderBottomColor: COLORS.black,
                                             borderBottomWidth: 1,
                                             height: 40,
@@ -222,7 +228,7 @@ const Start = ({navigation}) => {
                                 </View>
                                 <TouchableOpacity
                                     style={{
-                                        marginTop: SIZES.padding * 3,
+                                        marginTop: 10,
                                         height: 50,
                                         width: 200,
                                         backgroundColor: "#999",
@@ -232,39 +238,39 @@ const Start = ({navigation}) => {
                                     }}
                                     onPress={() => console.log("Enviar")}
                                 >
-                                    <Text style={{ 
+                                    <Text style={{
                                         color: COLORS.white,
                                         color: COLORS.white, ...FONTS.h1 }}>
                                             Enviar
                                     </Text>
                                 </TouchableOpacity>
-                            </View>                
+                            </View>
                     </View>
-                </TouchableWithoutFeedback>  
+                </TouchableWithoutFeedback>
             </Modal>
         )
     }
 
     function renderGroup() {
         return (
-            <View style={{ 
-                margin: SIZES.padding * 8,
+            <View style={{
+                margin: 5,
                 alignItems: 'center',
                 justifyContent: 'flex-end'
-                }}>                   
-                    <Text style={{ 
+                }}>
+                    <Text style={{
                         backgroundColor: "#000",
                         borderColor: '#000',
                         borderRadius: 10,
                         color: COLORS.white,
-                        fontSize: 30,
+                        fontSize: 15,
                         }}>
-                        {' Midnight Coffee '}
+                        {' @ Midnight Coffee '}
                     </Text>
             </View>
         )
     }
-    
+
 // Background
 return(
     <KeyboardAvoidingView
