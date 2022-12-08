@@ -6,6 +6,11 @@ import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import {Start} from "./screens"
 import {SignUp} from "./screens"
 import {Home} from "./screens"
+import {AddProfile} from "./screens"
+import {Configs} from "./screens"
+import {Entries} from "./screens"
+import {Goals} from "./screens"
+import {Reports} from "./screens"
 
 const theme = {
   ...DefaultTheme,
@@ -29,6 +34,11 @@ const App = () => {
             <Stack.Screen name="Start" component={Start} />
             <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="AddProfile" component={AddProfile} />
+            <Stack.Screen name="Configs" component={Configs} />
+            <Stack.Screen name="Entries" component={Entries} />
+            <Stack.Screen name="Goals" component={Goals} />
+            <Stack.Screen name="Reports" component={Reports} />
         </Stack.Navigator>
     </NavigationContainer>
 )

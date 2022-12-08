@@ -2,6 +2,7 @@ import React from "react";
 import{
     View,
     Text,
+    StyleSheet,
     TouchableOpacity,
     TouchableWithoutFeedback,
     Image,
@@ -10,9 +11,7 @@ import{
     KeyboardAvoidingView,
 } from "react-native"
 import { LinearGradient } from 'expo-linear-gradient'
-
-import { COLORS, SIZES, FONTS, icons, images } from "../constants"
-import { NavigationContainer } from "@react-navigation/native";
+import { COLORS, SIZES, FONTS, icons, images, styles } from "../constants"
 
 const Start = ({navigation}) => {
     const [showPassword, setShowPassword] = React.useState(false)
@@ -22,13 +21,9 @@ const Start = ({navigation}) => {
     function renderLogo() {
         return (
             <View
-                style={{
-                    flexDirection: 'column',
-                    marginTop: SIZES.padding * 20,
-                    height: 500,
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                }}
+                style={
+                    styles.logoView
+                }
             >
                 <Text style={{color: COLORS.white, ...FONTS.largeTitle }}>
                     Finance Manager Instance
@@ -131,7 +126,6 @@ const Start = ({navigation}) => {
                     <Text style={{ 
                         borderBottomColor: COLORS.white,
                         borderBottomWidth: 1,
-                        color: COLORS.white,
                         color: COLORS.white, ...FONTS.h3 }}>
                             Esqueci minha Senha
                     </Text>

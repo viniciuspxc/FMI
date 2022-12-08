@@ -4,12 +4,12 @@ import{
     Text
 } from "react-native"
 
-const Scan = () => {
+const AddProfile = () => {
     return(
         <View>
-            <Text>Scan</Text>
+            <Text>AddProfile</Text>
         </View>
     )
 }
 
-export default Scan;
+export default AddProfile;

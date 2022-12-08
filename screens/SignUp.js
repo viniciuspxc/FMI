@@ -8,24 +8,16 @@ import{
     KeyboardAvoidingView,
 } from "react-native"
 import { LinearGradient } from 'expo-linear-gradient'
+import { COLORS, SIZES, FONTS, icons, images, styles } from "../constants"
 
-import { COLORS, SIZES, FONTS, icons, images } from "../constants"
-import { NavigationContainer } from "@react-navigation/native";
 
 const SignUp = ({navigation}) => {
     const [showPassword, setShowPassword] = React.useState(false)
-    const [modalVisible, setModalVisible] = React.useState(false)
 
-    //Logotipo e titulo
-    function renderLogo() {
+    function renderHeader() {
         return (
             <View
-                style={{
-                    flexDirection: 'column',
-                    marginTop: SIZES.padding * 5,
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                }}
+                style={styles.headerView}
             >
                 <Text style={{color: COLORS.white, ...FONTS.largeTitle }}>
                     Cadastro de Usuário
@@ -176,7 +168,7 @@ return(
             style={{ flex: 1 }}
         >
             <View>
-                {renderLogo()}
+                {renderHeader()}
                 {renderCredentials()}
                 {renderButton()}
             </View>
