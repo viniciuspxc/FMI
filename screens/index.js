@@ -1,11 +1,19 @@
 import Home from "./Home";
-import Scan from "./Scan";
+import AddProfile from "./AddProfile";
 import SignUp from "./SignUp";
 import Start from "./Start";
+import Configs from "./Configs";
+import Entries from "./Entries";
+import Goals from "./Goals";
+import Reports from "./Reports";
 
 export {
-    Home,
-    Scan,
+    Start,
     SignUp,
-    Start
+    Home,
+    AddProfile,
+    Configs,
+    Entries,
+    Goals,
+    Reports
 }

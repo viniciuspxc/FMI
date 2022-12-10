@@ -1,33 +1,13 @@
-import { Dimensions } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 const { width, height } = Dimensions.get("window");
 
 export const COLORS = {
     // base colors
-    primary: "#24C16B", // green
-    secondary: "#0C381F",   // dark green
-
-    green: "#66D59A",
-    lightGreen: "#E6FEF0",
-
-    lime: "#00BA63",
-    emerald: "#2BC978",
-
-    red: "#FF4134",
-    lightRed: "#FFF1F0",
-
-    purple: "#6B3CE9",
-    lightpurple: "#F3EFFF",
-
-    yellow: "#FFC664",
-    lightyellow: "#FFF9EC",
-
     black: "#1E1F20",
     white: "#FFFFFF",
-
     lightGray: "#FCFBFC",
     gray: "#C1C3C5",
     darkgray: "#C3C6C7",
-
     transparent: "transparent",
 };
 
@@ -41,6 +21,7 @@ export const SIZES = {
 
     // font sizes
     largeTitle: 45,
+    title: 38,
     h1: 30,
     h2: 22,
     h3: 20,
@@ -58,6 +39,7 @@ export const SIZES = {
 
 export const FONTS = {
     largeTitle: { fontFamily: "Roboto", fontSize: SIZES.largeTitle, lineHeight: 55 },
+    title: { fontFamily: "Roboto", fontSize: SIZES.title, lineHeight: 55 },
     h1: { fontFamily: "Roboto", fontSize: SIZES.h1, lineHeight: 36 },
     h2: { fontFamily: "Roboto", fontSize: SIZES.h2, lineHeight: 30 },
     h3: { fontFamily: "Roboto", fontSize: SIZES.h3, lineHeight: 22 },
@@ -69,6 +51,30 @@ export const FONTS = {
     body5: { fontFamily: "Roboto", fontSize: SIZES.body5, lineHeight: 22 },
 };
 
-const appTheme = { COLORS, SIZES, FONTS };
+export const styles = StyleSheet.create({
+    title: {
+        fontSize: 40,
+        color: COLORS.gray
+    },
+    list: {
+        fontSize: 30,
+        color: COLORS.white
+    },
+    logoView: {
+        flexDirection: 'column',
+        marginTop: SIZES.padding * 20,
+        height: 500,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    headerView: {
+        flexDirection: 'column',
+        marginTop: SIZES.padding * 5,
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
+});
+
+const appTheme = { COLORS, SIZES, FONTS, styles };
 
 export default appTheme;

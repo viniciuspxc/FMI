@@ -6,15 +6,54 @@ import{
     Image,
     TextInput,
     KeyboardAvoidingView,
+    Alert
 } from "react-native"
 import { LinearGradient } from 'expo-linear-gradient'
 
 import { COLORS, SIZES, FONTS, icons, images } from "../constants"
 import { NavigationContainer } from "@react-navigation/native";
 
+import app from "../src/config/firebase";
+import { getFirestore, setDoc, doc } from "firebase/firestore"
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { ScrollView } from "react-native-gesture-handler";
+
 const SignUp = ({navigation}) => {
     const [showPassword, setShowPassword] = React.useState(false)
     const [modalVisible, setModalVisible] = React.useState(false)
+
+    const auth = getAuth();
+
+    const [usuario, setUsuario] = React.useState('');
+    const [email, setEmail] = React.useState('');
+    const [senha, setSenha] = React.useState('');
+    const [senhaConfirm, setSenhaConfirm] = React.useState('');
+
+
+    const criarConta = async () => {
+        if(senha == senhaConfirm) {
+            createUserWithEmailAndPassword(auth, email, senha)
+                .then((userCredencial) => {
+                    const user = userCredencial.user;
+                })
+                .catch((error) => {
+                    console.log(error.code);
+                    console.log(error.message);
+                });
+
+            const firestore = getFirestore();
+
+            await setDoc(doc(firestore, usuario, usuario), {
+                nome: usuario,
+                moeda: 'real',
+                saldoInicial: 0,
+                descricao: ''
+            });
+
+        } else {
+           console.log("Senhas não coincidem")
+        }
+    }
 
     //Logotipo e titulo
     function renderLogo() {
@@ -48,13 +87,15 @@ const SignUp = ({navigation}) => {
                         Usuário:
                     </Text>
                     <TextInput
+                        onChangeText={setUsuario}
+                        value={usuario}
                         style={{
                             marginVertical: SIZES.padding,
                             borderBottomColor: COLORS.white,
                             borderBottomWidth: 1,
                             height: 40,
                             color: COLORS.white,
-                            ...FONTS.h2
+                            ...FONTS.h2,
                         }}
                         selectionColor={COLORS.white}
                     />
@@ -66,6 +107,8 @@ const SignUp = ({navigation}) => {
                         E-mail:
                     </Text>
                     <TextInput
+                        onChangeText={setEmail}
+                        value={email}
                         style={{
                             marginVertical: SIZES.padding,
                             borderBottomColor: COLORS.white,
@@ -84,6 +127,8 @@ const SignUp = ({navigation}) => {
                         Senha:
                     </Text>
                     <TextInput
+                        onChangeText={setSenha}
+                        value={senha}
                         style={{
                             marginVertical: SIZES.padding,
                             borderBottomColor: COLORS.white,
@@ -122,6 +167,8 @@ const SignUp = ({navigation}) => {
                         Confirmar Senha:
                     </Text>
                     <TextInput
+                        onChangeText={setSenhaConfirm}
+                        value={senhaConfirm}
                         style={{
                             marginVertical: SIZES.padding,
                             borderBottomColor: COLORS.white,
@@ -153,7 +200,7 @@ const SignUp = ({navigation}) => {
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}
-                    onPress={() => navigation.navigate("Start")}
+                    onPress={criarConta}
                 >
                     <Text style={{
                         color: COLORS.white,
@@ -168,20 +215,22 @@ const SignUp = ({navigation}) => {
 
 // Background
 return(
-    <KeyboardAvoidingView
-    style={{ flex: 1 }}
-    >
-        <LinearGradient
-            colors={["#000", "#222"]}
-            style={{ flex: 1 }}
+    <ScrollView>
+        <KeyboardAvoidingView
+        style={{ flex: 1 }}
         >
-            <View>
-                {renderLogo()}
-                {renderCredentials()}
-                {renderButton()}
-            </View>
-        </LinearGradient>
-    </KeyboardAvoidingView>
+            <LinearGradient
+                colors={["#000", "#222"]}
+                style={{ flex: 1 }}
+            >
+                <View>
+                    {renderLogo()}
+                    {renderCredentials()}
+                    {renderButton()}
+                </View>
+            </LinearGradient>
+        </KeyboardAvoidingView>
+    </ScrollView>
 )
 }
 export default SignUp;

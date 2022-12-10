@@ -1,5 +1,5 @@
-import React from "react";
-import{
+import React, { useEffect } from "react";
+import {
     View,
     Text,
     TouchableOpacity,
@@ -8,15 +8,45 @@ import{
     TextInput,
     Modal,
     KeyboardAvoidingView,
+    Platform
 } from "react-native"
 import { LinearGradient } from 'expo-linear-gradient'
 
 import { COLORS, SIZES, FONTS, icons, images } from "../constants"
 import { NavigationContainer } from "@react-navigation/native";
+import { FlatList, ScrollView } from "react-native-gesture-handler";
 
-const Start = ({navigation}) => {
+import { app } from "../src/config/firebase";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+
+const Start = ({ navigation }) => {
     const [showPassword, setShowPassword] = React.useState(false)
     const [modalVisible, setModalVisible] = React.useState(false)
+
+    const auth = getAuth();
+
+    useEffect(() => {
+        onAuthStateChanged(auth, (data) => {
+            if(data) {
+                navigation.navigate('Home')
+            }
+        })
+    })
+
+    const [email, setEmail] = React.useState('');
+    const [senha, setSenha] = React.useState('');
+
+    const acessarConta = () => {
+        signInWithEmailAndPassword(auth, email, senha)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                navigation.navigate('Home');
+            })
+            .catch((error) => {
+                console.log(error.code);
+                console.log(error.message);
+            });
+    }
 
     //Logotipo e titulo
     function renderLogo() {
@@ -24,26 +54,24 @@ const Start = ({navigation}) => {
             <View
                 style={{
                     flexDirection: 'column',
-                    marginTop: 5,
-                    height: 300,
+                    marginTop: SIZES.padding * 20,
+                    height: 500,
                     alignItems: 'center',
                     justifyContent: 'center'
                 }}
             >
-                <Text style={{color: COLORS.white, fontSize: 25 }}>
+                <Text style={{ color: COLORS.white, ...FONTS.largeTitle }}>
                     Finance Manager Instance
                 </Text>
-                <Text style={{color: COLORS.white, fontSize: 20 }}>
-                    Administrador de Finanças
+                <Text style={{ color: COLORS.white, ...FONTS.h1 }}>
+                    Admnistrador de Finanças
                 </Text>
                 <Image
                     source={images.coffeelogo}
                     resizeMode="contain"
                     style={{
-                        marginTop: 25,
-                        width: "40%",
-                        height: "45%",
-                        borderRadius: 200,
+                        marginTop: SIZES.padding * -30,
+                        width: "40%"
                     }}
                 />
             </View>
@@ -54,43 +82,46 @@ const Start = ({navigation}) => {
         return (
             <View
                 style={{
-                    marginTop: -20,
-                    marginHorizontal: 10,
+                    marginTop: SIZES.padding * -20,
+                    marginHorizontal: SIZES.padding * 4,
                 }}
             >
                 {/* Full Name */}
                 <View>
-                    <Text style={{color: COLORS.white, fontSize: 25 }}>
-                        Usuário:
+                    <Text style={{ color: COLORS.white, ...FONTS.h1 }}>
+                        E-mail:
                     </Text>
                     <TextInput
+                        onChangeText={setEmail}
+                        value={email}
+                        keyboardType="email-address"
                         style={{
-                            marginTop: 7,
-                            marginVertical: 0,
+                            marginVertical: SIZES.padding,
                             borderBottomColor: COLORS.white,
-                            borderBottomWidth: 0.5,
-                            height: 30,
+                            borderBottomWidth: 1,
+                            height: 40,
                             color: COLORS.white,
-                            fontSize: 18
+                            ...FONTS.h2
                         }}
                         selectionColor={COLORS.white}
                     />
                 </View>
 
                 {/* Password */}
-                <View style={{ marginTop: 10 }}>
-                    <Text style={{ color: COLORS.white, fontSize: 25 }}>
+                <View style={{ marginTop: SIZES.padding * 2 }}>
+                    <Text style={{ color: COLORS.white, ...FONTS.h1 }}>
                         Senha:
                     </Text>
                     <TextInput
+                        onChangeText={setSenha}
+                        value={senha}
                         style={{
-                            marginTop: 7,
-                            marginVertical: 0,
+                            marginVertical: SIZES.padding,
                             borderBottomColor: COLORS.white,
-                            borderBottomWidth: 0.5,
-                            height: 30,
+                            borderBottomWidth: 1,
+                            height: 40,
                             color: COLORS.white,
-                            fontSize: 18
+                            ...FONTS.h2
                         }}
                         selectionColor={COLORS.white}
                         secureTextEntry={!showPassword}
@@ -100,7 +131,7 @@ const Start = ({navigation}) => {
                             position: 'absolute',
                             right: 0,
                             bottom: 20,
-                            height: 15,
+                            height: 30,
                             width: 30
                         }}
                         onPress={() => setShowPassword(!showPassword)}
@@ -121,8 +152,10 @@ const Start = ({navigation}) => {
 
     function renderButton() {
         return (
-            <View style ={{alignItems: 'center',
-            justifyContent: 'center'}}>
+            <View style={{
+                alignItems: 'center',
+                justifyContent: 'center'
+            }}>
                 <TouchableOpacity
                     style={{
                         marginTop: SIZES.padding * 1.5,
@@ -136,8 +169,9 @@ const Start = ({navigation}) => {
                         borderBottomColor: COLORS.white,
                         borderBottomWidth: 1,
                         color: COLORS.white,
-                        color: COLORS.white, fontSize: 15 }}>
-                            Esqueceu sua senha?
+                        color: COLORS.white, ...FONTS.h3
+                    }}>
+                        Esqueci minha Senha
                     </Text>
 
                 </TouchableOpacity>
@@ -145,7 +179,7 @@ const Start = ({navigation}) => {
 
                 <TouchableOpacity
                     style={{
-                        marginTop: 20,
+                        marginTop: SIZES.padding * 3,
                         height: 50,
                         width: 200,
                         backgroundColor: "#999",
@@ -153,20 +187,22 @@ const Start = ({navigation}) => {
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}
-                    onPress={() => navigation.navigate("Home")}
+                    onPress={acessarConta}
                 >
                     <Text style={{
                         color: COLORS.white,
-                        color: COLORS.white, ...FONTS.h1 }}>
-                            Entrar
+                        color: COLORS.white, ...FONTS.h1
+                    }}>
+                        Entrar
                     </Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                     style={{
-                        marginTop: 0,
+                        marginTop: SIZES.padding * 3,
                         height: 50,
-                        width: 300,
+                        width: 100,
+                        backgroundColor: "#999",
                         borderRadius: SIZES.radius / 1,
                         alignItems: 'center',
                         justifyContent: 'center'
@@ -175,11 +211,9 @@ const Start = ({navigation}) => {
                 >
                     <Text style={{
                         color: COLORS.white,
-                        fontSize: 15,
-                        borderBottomColor: COLORS.white,
-                        borderBottomWidth: 1,
+                        color: COLORS.white, ...FONTS.h4
                     }}>
-                        Ainda não possui uma conta?
+                        Cadastrar
                     </Text>
                 </TouchableOpacity>
             </View>
@@ -199,52 +233,53 @@ const Start = ({navigation}) => {
                 >
                     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
 
-                            <View
+                        <View
+                            style={{
+                                marginTop: SIZES.padding * 20,
+                                height: 250,
+                                width: SIZES.width * 0.9,
+                                backgroundColor: COLORS.white,
+                                borderRadius: SIZES.radius,
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }}
+                        >
+                            <View>
+                                <Text style={{ color: COLORS.black, ...FONTS.h1 }}>
+                                    Insira seu e-mail para recuperação:
+                                </Text>
+                                <TextInput
+                                    style={{
+                                        marginVertical: SIZES.padding,
+                                        borderBottomColor: COLORS.black,
+                                        borderBottomWidth: 1,
+                                        height: 40,
+                                        color: COLORS.black,
+                                        ...FONTS.h2
+                                    }}
+                                    selectionColor={COLORS.black}
+                                />
+                            </View>
+                            <TouchableOpacity
                                 style={{
-                                    marginTop: 20,
-                                    height: 250,
-                                    width: SIZES.width * 0.9,
-                                    backgroundColor: COLORS.white,
-                                    borderRadius: SIZES.radius,
+                                    marginTop: SIZES.padding * 3,
+                                    height: 50,
+                                    width: 200,
+                                    backgroundColor: "#999",
+                                    borderRadius: SIZES.radius / 1,
                                     alignItems: 'center',
                                     justifyContent: 'center'
                                 }}
+                                onPress={() => console.log("Enviar")}
                             >
-                                <View>
-                                    <Text style={{color: COLORS.black, fontSize: 18 }}>
-                                        Insira seu e-mail para recuperação:
-                                    </Text>
-                                    <TextInput
-                                        style={{
-                                            marginVertical: 7,
-                                            borderBottomColor: COLORS.black,
-                                            borderBottomWidth: 1,
-                                            height: 40,
-                                            color: COLORS.black,
-                                            ...FONTS.h2
-                                        }}
-                                        selectionColor={COLORS.black}
-                                    />
-                                </View>
-                                <TouchableOpacity
-                                    style={{
-                                        marginTop: 10,
-                                        height: 50,
-                                        width: 200,
-                                        backgroundColor: "#999",
-                                        borderRadius: SIZES.radius / 1,
-                                        alignItems: 'center',
-                                        justifyContent: 'center'
-                                    }}
-                                    onPress={() => console.log("Enviar")}
-                                >
-                                    <Text style={{
-                                        color: COLORS.white,
-                                        color: COLORS.white, ...FONTS.h1 }}>
-                                            Enviar
-                                    </Text>
-                                </TouchableOpacity>
-                            </View>
+                                <Text style={{
+                                    color: COLORS.white,
+                                    color: COLORS.white, ...FONTS.h1
+                                }}>
+                                    Enviar
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </TouchableWithoutFeedback>
             </Modal>
@@ -254,41 +289,44 @@ const Start = ({navigation}) => {
     function renderGroup() {
         return (
             <View style={{
-                margin: 5,
+                margin: SIZES.padding * 8,
                 alignItems: 'center',
                 justifyContent: 'flex-end'
+            }}>
+                <Text style={{
+                    backgroundColor: "#000",
+                    borderColor: '#000',
+                    borderRadius: 10,
+                    color: COLORS.white,
+                    fontSize: 30,
                 }}>
-                    <Text style={{
-                        backgroundColor: "#000",
-                        borderColor: '#000',
-                        borderRadius: 10,
-                        color: COLORS.white,
-                        fontSize: 15,
-                        }}>
-                        {' @ Midnight Coffee '}
-                    </Text>
+                    {' Midnight Coffee '}
+                </Text>
             </View>
         )
     }
 
-// Background
-return(
-    <KeyboardAvoidingView
-    style={{ flex: 1 }}
-    >
-        <LinearGradient
-            colors={["#000", "#222"]}
-            style={{ flex: 1 }}
-        >
-            <View>
-                {renderLogo()}
-                {renderLogin()}
-                {renderButton()}
-                {renderGroup()}
-            </View>
-        </LinearGradient>
-        {renderForgotPassword()}
-    </KeyboardAvoidingView>
-)
+    // Background
+    return (
+        <ScrollView>
+            <KeyboardAvoidingView
+                enabled behavior={Platform.OS === "ios" ? padding : null}
+                style={{ flex: 1 }}
+            >
+                <LinearGradient
+                    colors={["#000", "#222"]}
+                    style={{ flex: 1 }}
+                >
+                    <View>
+                        {renderLogo()}
+                        {renderLogin()}
+                        {renderButton()}
+                        {renderGroup()}
+                    </View>
+                </LinearGradient>
+                {renderForgotPassword()}
+            </KeyboardAvoidingView>
+        </ScrollView>
+    )
 }
 export default Start;
