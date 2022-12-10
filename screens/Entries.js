@@ -8,7 +8,8 @@ import{
     TouchableOpacity,
     onPressHandler,
     KeyboardAvoidingView,
-    ScrollView
+    ScrollView,
+    Switch
 
 } from "react-native"
 import { LinearGradient } from 'expo-linear-gradient'
@@ -27,8 +28,21 @@ function renderHeader(){
     )
 }
 
+function renderSwitch(){
+    return(
+        <Text>t</Text>
+    )
+}
 
 function renderEntries() {
+    const[isRecorrencia, setRecorrencia] = React.useState(false);
+    const toggleRecorrencia = () =>{setRecorrencia(previousState => !previousState)}
+    const[isParcelamento, setParcelamento] = React.useState(false);
+    const toggleParcelamento = () =>{setParcelamento(previousState => !previousState)}    
+    const[isAtraso, setAtraso] = React.useState(false);
+    const toggleAtraso = () =>{setAtraso(previousState => !previousState)}    
+
+
     return (
         <View
             style={{
@@ -36,39 +50,22 @@ function renderEntries() {
                 marginHorizontal: SIZES.padding * 4,
             }}
         >
-            
             <View style={{ marginTop: SIZES.padding * 2 }}>
                 <Text style={{color: COLORS.white, ...FONTS.h1 }}>
                     Valor:
                 </Text>
                 <TextInput
-                    style={{
-                        marginVertical: SIZES.padding,
-                        borderBottomColor: COLORS.white,
-                        borderBottomWidth: 1,
-                        height: 40,
-                        color: COLORS.white,
-                        ...FONTS.h2
-                    }}
+                    style={styles.TextInput}
                     selectionColor={COLORS.white}
                 />
             </View>
-
-            
-            
+                  
             <View style={{ marginTop: SIZES.padding * 2 }}>
                 <Text style={{color: COLORS.white, ...FONTS.h1 }}>
                     Data:
                 </Text>
                 <TextInput
-                    style={{
-                        marginVertical: SIZES.padding,
-                        borderBottomColor: COLORS.white,
-                        borderBottomWidth: 1,
-                        height: 40,
-                        color: COLORS.white,
-                        ...FONTS.h2
-                    }}
+                    style={styles.TextInput}
                     selectionColor={COLORS.white}
                 />
             </View>
@@ -78,71 +75,67 @@ function renderEntries() {
                     Tipo:
                 </Text>
                 <TextInput
-                    style={{
-                        marginVertical: SIZES.padding,
-                        borderBottomColor: COLORS.white,
-                        borderBottomWidth: 1,
-                        height: 40,
-                        color: COLORS.white,
-                        ...FONTS.h2
-                    }}
+                    style={styles.TextInput}
                     selectionColor={COLORS.white}
                 />
             </View>
 
-            <View style={{ marginTop: SIZES.padding * 2 }}>
+            <View style={styles.SwitchView}>
                 <Text style={{color: COLORS.white, ...FONTS.h1 }}>
                     Recorrência?
                 </Text>
-                <TextInput
-                    style={{
-                        marginVertical: SIZES.padding,
-                        borderBottomColor: COLORS.white,
-                        borderBottomWidth: 1,
-                        height: 40,
-                        color: COLORS.white,
-                        ...FONTS.h2
-                    }}
-                    selectionColor={COLORS.white}
+                <View style={{ marginStart: SIZES.padding * 10,marginTop: SIZES.padding * 1, alignItems: 'center',
+        justifyContent: 'center' }}>
+                <Text style={{color: COLORS.white, ...FONTS.h1 }}>
+                    {isRecorrencia ? 'Sim' : 'Não'}
+                </Text>
+                <Switch
+                    style={{ transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }] }}
+                    trackColor={{false: 'darkred', true:'green'}}
+                    thumbColor={isRecorrencia ? 'grey' : 'white'}
+                    onValueChange={toggleRecorrencia}
+                    value={isRecorrencia}
                 />
-            </View>
+                </View>
+                </View>
 
-            <View style={{ marginTop: SIZES.padding * 2 }}>
+            <View style={styles.SwitchView}>
                 <Text style={{color: COLORS.white, ...FONTS.h1 }}>
                     Parcerlamento?
                 </Text>
-                <TextInput
-                    style={{
-                        marginVertical: SIZES.padding,
-                        borderBottomColor: COLORS.white,
-                        borderBottomWidth: 1,
-                        height: 40,
-                        color: COLORS.white,
-                        ...FONTS.h2
-                    }}
-                    selectionColor={COLORS.white}
+                <View style={{ marginStart: SIZES.padding * 10,marginTop: SIZES.padding * 1, alignItems: 'center',
+        justifyContent: 'center' }}>
+                <Text style={{color: COLORS.white, ...FONTS.h1 }}>
+                    {isParcelamento ? 'Sim' : 'Não'}
+                </Text>
+                <Switch
+                    style={{ transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }] }}
+                    trackColor={{false: 'darkred', true:'green'}}
+                    thumbColor={isParcelamento ? 'grey' : 'white'}
+                    onValueChange={toggleParcelamento}
+                    value={isParcelamento}
                 />
-            </View>
+                </View>
+                </View>
 
-            <View style={{ marginTop: SIZES.padding * 2 }}>
+            <View style={styles.SwitchView}>
                 <Text style={{color: COLORS.white, ...FONTS.h1 }}>
                     Em Atraso?
                 </Text>
-                <TextInput
-                    style={{
-                        marginVertical: SIZES.padding,
-                        borderBottomColor: COLORS.white,
-                        borderBottomWidth: 1,
-                        height: 40,
-                        color: COLORS.white,
-                        ...FONTS.h2
-                    }}
-                    selectionColor={COLORS.white}
+                <View style={{ marginStart: SIZES.padding * 10,marginTop: SIZES.padding * 1, alignItems: 'center',
+        justifyContent: 'center' }}>
+                <Text style={{color: COLORS.white, ...FONTS.h1 }}>
+                    {isAtraso ? 'Sim' : 'Não'}
+                </Text>
+                <Switch
+                    style={{ transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }] }}
+                    trackColor={{false: 'darkred', true:'green'}}
+                    thumbColor={isAtraso ? 'grey' : 'white'}
+                    onValueChange={toggleAtraso}
+                    value={isAtraso}
                 />
-            </View>
-
-
-
+                </View>
+                </View>
             </View>
     )
 }
@@ -185,6 +178,7 @@ function renderButton() {
         >   
         <ScrollView>
             {renderHeader()}
+            {renderSwitch()}
             {renderEntries()}
             {renderButton()}
                                   
