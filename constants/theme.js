@@ -58,7 +58,49 @@ export const styles = StyleSheet.create({
     },
     list:{
         fontSize: 30,
-        color: COLORS.white
+        marginTop: SIZES.padding * 1,
+        color: COLORS.white,
+        Flex: 1,
+        flexDirection: 'row',
+    },
+    GoalsList:{
+        fontSize: 30,
+        marginTop: SIZES.padding * 1,
+        marginStart: SIZES.padding * 2,
+        marginEnd: SIZES.padding * 2,
+        marginBottom: SIZES.padding * 2,
+        color: COLORS.white,
+        Flex: 1,
+        flexDirection: 'row',
+        backgroundColor: "#333",
+        borderRadius: 20,
+    },
+    categories:{
+        fontSize: 25,
+        color: COLORS.white,
+        height: 40,
+        backgroundColor: "#444",
+        borderRadius: 20,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    income:{
+        fontSize: 25,
+        color: COLORS.white,
+        height: 40,
+        backgroundColor: "#006b15",
+        borderRadius: 20,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    outcome:{
+        fontSize: 25,
+        color: COLORS.white,
+        height: 40,
+        backgroundColor: "#6b0000",
+        borderRadius: 20,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     logoView:{
         flexDirection: 'column',

@@ -10,7 +10,7 @@ import{
 
 } from "react-native"
 import { LinearGradient } from 'expo-linear-gradient'
-import { COLORS, SIZES, FONTS, icons, images, styles } from "../constants"
+import { COLORS, SIZES, FONTS, icons, images, Profiles, Categories, styles } from "../constants"
 
 const Entries = ({navigation}) => {
 

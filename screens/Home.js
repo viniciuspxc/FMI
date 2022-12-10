@@ -12,7 +12,7 @@ import{
 } from "react-native"
 import { LinearGradient } from 'expo-linear-gradient'
 
-import { COLORS, SIZES, FONTS, icons, images, Profiles, RenderProfiles, styles } from "../constants"
+import { COLORS, SIZES, FONTS, icons, images, Profiles, styles } from "../constants"
 
 const Home = ({navigation}) => {
     const [modalVisible, setModalVisible] = React.useState(false)
@@ -170,7 +170,7 @@ const Home = ({navigation}) => {
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}
-                    onPress={() => console.log("botao1")}
+                    onPress={() => navigation.navigate("ProfileTransfer")}
                 >
                     <Text style={{ 
                         

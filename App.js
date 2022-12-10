@@ -11,6 +11,7 @@ import {Configs} from "./screens"
 import {Entries} from "./screens"
 import {Goals} from "./screens"
 import {Reports} from "./screens"
+import {ProfileTransfer} from "./ProfileTransfer"
 
 const theme = {
   ...DefaultTheme,
@@ -39,6 +40,7 @@ const App = () => {
             <Stack.Screen name="Entries" component={Entries} />
             <Stack.Screen name="Goals" component={Goals} />
             <Stack.Screen name="Reports" component={Reports} />
+            <Stack.Screen name="ProfileTransfer" component={ProfileTransfer} />
         </Stack.Navigator>
     </NavigationContainer>
 )
