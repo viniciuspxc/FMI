@@ -29,7 +29,7 @@ const SignUp = ({navigation}) => {
             >
                 <Text style={{color: COLORS.white, ...FONTS.largeTitle }}>
                     Cadastro de Usuário
-                </Text>  
+                </Text>
             </View>
         )
     }
@@ -132,12 +132,12 @@ const SignUp = ({navigation}) => {
                         }}
                         selectionColor={COLORS.white}
                         secureTextEntry={!showPassword}
-                    />                  
+                    />
                 </View>
             </View>
         )
     }
-    
+
     function renderButton() {
         return (
             <View style ={{alignItems: 'center',
@@ -155,17 +155,17 @@ const SignUp = ({navigation}) => {
                     }}
                     onPress={() => navigation.navigate("Start")}
                 >
-                    <Text style={{ 
+                    <Text style={{
                         color: COLORS.white,
                         color: COLORS.white, ...FONTS.h1 }}>
                             Cadastrar
                     </Text>
                 </TouchableOpacity>
             </View>
-            
+
         )
     }
-    
+
 // Background
 return(
     <KeyboardAvoidingView
