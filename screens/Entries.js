@@ -6,11 +6,13 @@ import{
     TextInput,
     FlatList,
     TouchableOpacity,
-    onPressHandler
+    onPressHandler,
+    KeyboardAvoidingView,
+    ScrollView
 
 } from "react-native"
 import { LinearGradient } from 'expo-linear-gradient'
-import { COLORS, SIZES, FONTS, icons, images, Profiles, Categories, styles } from "../constants"
+import { COLORS, SIZES, FONTS, icons, images, Profiles, styles } from "../constants"
 
 const Entries = ({navigation}) => {
 
@@ -74,23 +76,6 @@ function renderEntries() {
             <View style={{ marginTop: SIZES.padding * 2 }}>
                 <Text style={{color: COLORS.white, ...FONTS.h1 }}>
                     Tipo:
-                </Text>
-                <TextInput
-                    style={{
-                        marginVertical: SIZES.padding,
-                        borderBottomColor: COLORS.white,
-                        borderBottomWidth: 1,
-                        height: 40,
-                        color: COLORS.white,
-                        ...FONTS.h2
-                    }}
-                    selectionColor={COLORS.white}
-                />
-            </View>
-
-            <View style={{ marginTop: SIZES.padding * 2 }}>
-                <Text style={{color: COLORS.white, ...FONTS.h1 }}>
-                    Categoria:
                 </Text>
                 <TextInput
                     style={{
@@ -191,17 +176,21 @@ function renderButton() {
 }
     
     return(   
+        <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        >
         <LinearGradient
             colors={["#000", "#222"]}
             style={{ flex: 1 }}
         >   
-        <View>
+        <ScrollView>
             {renderHeader()}
             {renderEntries()}
             {renderButton()}
                                   
-        </View>
+        </ScrollView>
         </LinearGradient> 
+        </KeyboardAvoidingView>
     )
 }
 

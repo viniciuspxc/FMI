@@ -9,6 +9,7 @@ import{
     TextInput,
     Modal,
     KeyboardAvoidingView,
+    ScrollView,
 } from "react-native"
 import { LinearGradient } from 'expo-linear-gradient'
 import { COLORS, SIZES, FONTS, icons, images, styles } from "../constants"
@@ -18,6 +19,22 @@ const Start = ({navigation}) => {
     const [modalVisible, setModalVisible] = React.useState(false)
 
     //Logotipo e titulo
+
+    function renderHeader(){
+        return(
+            <View style={styles.logoView}>
+                <Text style={{
+            color: COLORS.white, ...FONTS.largeTitle}}>
+                    Finance Manager Instance
+                </Text>
+                <Text style={{color: COLORS.white, ...FONTS.h1 }}>
+                    Admnistrador de Finanças
+                </Text>
+                
+            </View>
+        )
+    }
+
     function renderLogo() {
         return (
             <View
@@ -25,20 +42,15 @@ const Start = ({navigation}) => {
                     styles.logoView
                 }
             >
-                <Text style={{color: COLORS.white, ...FONTS.largeTitle }}>
-                    Finance Manager Instance
-                </Text>
-                <Text style={{color: COLORS.white, ...FONTS.h1 }}>
-                    Admnistrador de Finanças
-                </Text>
                 <Image
                     source={images.coffeelogo}
                     resizeMode="contain"
                     style={{
-                        marginTop: SIZES.padding * -30,
+                        marginTop: SIZES.padding * -40,
                         width: "40%"
                     }}
                 />
+                
             </View>
         )
     }
@@ -47,7 +59,7 @@ const Start = ({navigation}) => {
         return (
             <View
                 style={{
-                    marginTop: SIZES.padding * -20,
+                    marginTop: SIZES.padding * -35,
                     marginHorizontal: SIZES.padding * 4,
                 }}
             >
@@ -268,12 +280,13 @@ return(
             colors={["#000", "#222"]}
             style={{ flex: 1 }}
         >
-            <View>
+            <ScrollView>
+                {renderHeader()}
                 {renderLogo()}
                 {renderLogin()}
                 {renderButton()}
                 {renderGroup()}
-            </View>
+            </ScrollView>
         </LinearGradient>
         {renderForgotPassword()}
     </KeyboardAvoidingView>

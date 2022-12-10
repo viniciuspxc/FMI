@@ -35,7 +35,7 @@ const Configs = ({navigation}) => {
                     style={{                       
                         marginTop: SIZES.padding * 4,
                         height: 60,
-                        width: 450,
+                        width: 400,
                         backgroundColor: "#333",
                         borderRadius: SIZES.radius / 1,
                         borderLeftColor: COLORS.white,
@@ -70,71 +70,23 @@ const Configs = ({navigation}) => {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    style={{
-                        marginTop: SIZES.padding * 2,
-                        height: 60,
-                        width: 450,
-                        backgroundColor: "#333",
-                        borderRadius: SIZES.radius / 1,
-                        borderLeftColor: COLORS.white,
-                        borderBottomWidth: 1,
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                    }}
-                    onPress={() => console.log("Adicionar Conta Compartilhada")}
+                    style={styles.HomeButton}
+                    onPress={() => navigation.navigate("AddSharedProfile")}
                 >
-                    <Text style={{ 
-                        
-                        color: COLORS.white,
-                        color: COLORS.white, ...FONTS.h1 }}>
+                    <Text style={styles.TextHomeButton}>
                             Adicionar Conta Compartilhada
                     </Text>
                 </TouchableOpacity>
                 
                 <TouchableOpacity
-                    style={{
-                        marginTop: SIZES.padding * 2,
-                        height: 60,
-                        width: 450,
-                        backgroundColor: "#333",
-                        borderRadius: SIZES.radius / 1,
-                        borderLeftColor: COLORS.white,
-                        borderBottomWidth: 1,
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                    }}
-                    onPress={() => console.log("Editar Perfís")}
+                    style={styles.HomeButton}
+                    onPress={() => navigation.navigate("EditProfile")}
                 >
-                    <Text style={{ 
-                        
-                        color: COLORS.white,
-                        color: COLORS.white, ...FONTS.h1 }}>
+                    <Text style={styles.TextHomeButton}>
                             Editar Perfís
                     </Text>
                 </TouchableOpacity>
-
-                <TouchableOpacity
-                    style={{
-                        marginTop: SIZES.padding * 2,
-                        height: 60,
-                        width: 450,
-                        backgroundColor: "#333",
-                        borderRadius: SIZES.radius / 1,
-                        borderLeftColor: COLORS.white,
-                        borderBottomWidth: 1,
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                    }}
-                    onPress={() =>console.log("Editar Categorias")}
-                >
-                    <Text style={{ 
-                        
-                        color: COLORS.white,
-                        color: COLORS.white, ...FONTS.h1 }}>
-                            Editar Categorias
-                    </Text>
-                </TouchableOpacity>
-                
+               
             </View>
             
         )

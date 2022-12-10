@@ -63,6 +63,11 @@ export const styles = StyleSheet.create({
         Flex: 1,
         flexDirection: 'row',
     },
+    EditProfileList:{
+        fontSize: 25,
+        color: COLORS.white,
+        flexDirection: 'row',
+    },
     GoalsList:{
         fontSize: 30,
         marginTop: SIZES.padding * 1,
@@ -104,16 +109,34 @@ export const styles = StyleSheet.create({
     },
     logoView:{
         flexDirection: 'column',
-        marginTop: SIZES.padding * 20,
-        height: 500,
+        marginTop: SIZES.padding * 5,
+        //height: 500,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        marginHorizontal: SIZES.padding * 2,
     },
     headerView:{
         flexDirection: 'column',
         marginTop: SIZES.padding * 5,
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    HomeButton:{
+        marginTop: SIZES.padding * 2,
+        //height: 50,
+        width: 400,
+        marginHorizontal: SIZES.padding * 2,
+        backgroundColor: "#333",
+        borderRadius: SIZES.radius / 1,
+        borderLeftColor: COLORS.white,
+        borderBottomWidth: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    TextHomeButton:{
+        marginVertical: SIZES.padding * 0.5,
+        color: COLORS.white,
+        color: COLORS.white, ...FONTS.h1
     }
 });
 

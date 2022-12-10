@@ -9,6 +9,7 @@ import{
     FlatList,
     Modal,
     KeyboardAvoidingView,
+    ScrollView
 } from "react-native"
 import { LinearGradient } from 'expo-linear-gradient'
 
@@ -24,7 +25,7 @@ const Home = ({navigation}) => {
                     flexDirection: 'row',
                     alignItems: "center",
                     marginTop: SIZES.padding * 6,
-                    paddingHorizontal: SIZES.padding * 8
+                    marginStart: SIZES.padding * 6,
                 }}
                 onPress={() => setModalVisible(true)}
             >
@@ -58,7 +59,7 @@ const Home = ({navigation}) => {
                     style={{                       
                         marginTop: SIZES.padding * 4,
                         height: 60,
-                        width: 450,
+                        width: 400,
                         backgroundColor: "#333",
                         borderRadius: SIZES.radius / 1,
                         borderLeftColor: COLORS.white,
@@ -69,9 +70,7 @@ const Home = ({navigation}) => {
                     }}
                     onPress={() => console.log("Saldo")}
                 >
-                    <Text style={{                     
-                        color: COLORS.white,
-                        color: COLORS.white, ...FONTS.h1 }}>
+                    <Text style={styles.TextHomeButton}>
                             Saldo:
                     </Text>
                         <View style={{height: 45,
@@ -80,11 +79,7 @@ const Home = ({navigation}) => {
                             borderRadius: SIZES.radius / 1,
                             alignItems: 'center',
                             justifyContent: 'space-evenly' }}>                    
-                        <Text
-                            style={{                                                
-                                color: COLORS.white,
-                                ...FONTS.h1
-                            }}
+                        <Text style={styles.TextHomeButton}
                             selectionColor={COLORS.white}
                         >
                         VALOR
@@ -93,111 +88,46 @@ const Home = ({navigation}) => {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    style={{
-                        marginTop: SIZES.padding * 2,
-                        height: 60,
-                        width: 450,
-                        backgroundColor: "#333",
-                        borderRadius: SIZES.radius / 1,
-                        borderLeftColor: COLORS.white,
-                        borderBottomWidth: 1,
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                    }}
+                    style={styles.HomeButton}
                     onPress={() => navigation.navigate("Entries")}
                 >
-                    <Text style={{ 
-                        
-                        color: COLORS.white,
-                        color: COLORS.white, ...FONTS.h1 }}>
+                    <Text style={styles.TextHomeButton}>
                             Lançamentos e Despesas
                     </Text>
                 </TouchableOpacity>
                 
                 <TouchableOpacity
-                    style={{
-                        marginTop: SIZES.padding * 2,
-                        height: 60,
-                        width: 450,
-                        backgroundColor: "#333",
-                        borderRadius: SIZES.radius / 1,
-                        borderLeftColor: COLORS.white,
-                        borderBottomWidth: 1,
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                    }}
+                    style={styles.HomeButton}
                     onPress={() => navigation.navigate("Goals")}
                 >
-                    <Text style={{ 
-                        
-                        color: COLORS.white,
-                        color: COLORS.white, ...FONTS.h1 }}>
+                    <Text style={styles.TextHomeButton}>
                             Metas
                     </Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    style={{
-                        marginTop: SIZES.padding * 2,
-                        height: 60,
-                        width: 450,
-                        backgroundColor: "#333",
-                        borderRadius: SIZES.radius / 1,
-                        borderLeftColor: COLORS.white,
-                        borderBottomWidth: 1,
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                    }}
+                    style={styles.HomeButton}
                     onPress={() => navigation.navigate("Reports")}
                 >
-                    <Text style={{ 
-                        
-                        color: COLORS.white,
-                        color: COLORS.white, ...FONTS.h1 }}>
+                    <Text style={styles.TextHomeButton}>
                             Estatísticas e Relatórios
                     </Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    style={{
-                        marginTop: SIZES.padding * 2,
-                        height: 60,
-                        width: 450,
-                        backgroundColor: "#333",
-                        borderRadius: SIZES.radius / 1,
-                        borderLeftColor: COLORS.white,
-                        borderBottomWidth: 1,
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                    }}
+                    style={styles.HomeButton}
                     onPress={() => navigation.navigate("ProfileTransfer")}
                 >
-                    <Text style={{ 
-                        
-                        color: COLORS.white,
-                        color: COLORS.white, ...FONTS.h1 }}>
+                    <Text style={styles.TextHomeButton}>
                             Transferência entre Perfís
                     </Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    style={{
-                        marginTop: SIZES.padding * 2,
-                        height: 60,
-                        width: 450,
-                        backgroundColor: "#333",
-                        borderRadius: SIZES.radius / 1,
-                        borderLeftColor: COLORS.white,
-                        borderBottomWidth: 1,
-                        alignItems: 'center',
-                        justifyContent: 'center',                        
-                    }}
+                    style={styles.HomeButton}
                     onPress={() => navigation.navigate("Configs")}
                 >
-                    <Text style={{ 
-                        
-                        color: COLORS.white,
-                        color: COLORS.white, ...FONTS.h1 }}>
+                    <Text style={styles.TextHomeButton}>
                             Configurações
                     </Text>
                 </TouchableOpacity>
@@ -279,21 +209,10 @@ const Home = ({navigation}) => {
                                       
                                 
                                 <TouchableOpacity
-                                    style={{
-                                        marginTop: SIZES.padding * 1,
-                                        height: 60,
-                                        width: 450,
-                                        backgroundColor: "#333",
-                                        borderRadius: SIZES.radius / 1,
-                                        borderLeftColor: COLORS.white,
-                                        borderBottomWidth: 1,
-                                        alignItems: 'center',
-                                        justifyContent: 'center',                        
-                                    }}
+                                    style={styles.HomeButton}
                                     onPress={() => navigation.navigate("AddProfile")}
                                 >
-                                    <Text style={{ 
-                                        color: COLORS.white, ...FONTS.h1 }}>
+                                    <Text style={styles.TextHomeButton}>
                                             Adicionar Perfil
                                     </Text>
                                 </TouchableOpacity>
@@ -313,11 +232,11 @@ return(
             colors={["#000", "#222"]}
             style={{ flex: 1 }}
         >
-            <View>
+            <ScrollView style={{ flex: 1 }}>
                 {renderProfile()}
                 {renderButton()}
 
-            </View>
+            </ScrollView>
         </LinearGradient>
         {renderChangeProfile()}
     </KeyboardAvoidingView>

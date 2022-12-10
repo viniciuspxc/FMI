@@ -11,7 +11,7 @@ import{
     KeyboardAvoidingView,
 } from "react-native"
 import { LinearGradient } from 'expo-linear-gradient'
-import { COLORS, SIZES, FONTS, icons, images, Profiles, Categories, styles, EntriesList } from "../constants"
+import { COLORS, SIZES, FONTS, icons, images, Profiles, styles, EntriesList } from "../constants"
 
 
 function renderHeader(){
@@ -39,59 +39,6 @@ function renderGraph(){
                         tintColor: COLORS.white,
                     }}
                 />
-        </View>
-    )
-}
-
-function RenderCategories( {data}){
-    return(
-        <TouchableOpacity style={{
-            flexDirection: 'row',
-            marginTop: SIZES.padding * 2,
-            alignItemsArr: 'flex-start',
-            justifyContent: 'flex-start',                    
-        }}
-        onPress={() => console.log("Filtrar categoria: "+data.name)}
-        >
-            <Text style={styles.categories}>  {data.name}  </Text>
-
-        </TouchableOpacity>
-        
-    )
-}
-
-function renderSelectCategories(){
-    return(
-        <View style={{ Flex: 1,
-            flexDirection: 'row',
-            marginTop: SIZES.padding * 1,
-            marginStart: SIZES.padding * 2,
-            alignItemsArr: 'flex-start',
-            justifyContent: 'flex-start',
-                                  
-        }}>
-        <Text style={{
-        color: COLORS.white, ...FONTS.title}}>
-            Categorias:  
-        </Text>
-        <View style={{ Flex: 1,
-            height: 100,
-            flexDirection: 'row',
-            marginTop: SIZES.padding * 1,
-            marginStart: SIZES.padding * 2,
-            alignItemsArr: 'flex-start',
-            justifyContent: 'flex-start',
-                                  
-        }}>
-        <FlatList
-        horizontal
-        showsVerticalScrollIndicator={false}
-        data={Categories.Categories}
-        renderItem={ ({item}) => <RenderCategories data={item}
-        keyExtractor={(item) => String(item.id)}
-        />}
-        />
-        </View>
         </View>
     )
 }
@@ -136,11 +83,10 @@ const Reports = () => {
             colors={["#000", "#222"]}
             style={{ flex: 1 }}
         >
-        <View>
+        <View style={{marginHorizontal:2}}>
             {renderHeader()}
             {renderGraph()}
-            {renderSelectCategories()}
-
+            
             <Text style={{
         color: COLORS.white, ...FONTS.title,marginStart: SIZES.padding*2}}>
                 Relatórios:
