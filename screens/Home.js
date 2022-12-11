@@ -9,7 +9,6 @@ import {
     TouchableOpacity,
     TouchableWithoutFeedback,
     View,
-    Alert
 } from "react-native";
 
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
@@ -21,6 +20,7 @@ const Home = ({ navigation }) => {
     const [modalVisible, setModalVisible] = React.useState(false)
     const [titulo, setTitulo] = React.useState("")
     const [saldo, setSaldo] = React.useState()
+    const [moeda, setMoeda] = React.useState("")
 
     const firestore = getFirestore();
     const auth = getAuth();
@@ -122,7 +122,7 @@ const Home = ({ navigation }) => {
                             }}
                             selectionColor={COLORS.white}
                         >
-                            {saldo}
+                            R${saldo}
                         </Text>
                     </View>
                 </TouchableOpacity>
@@ -196,28 +196,6 @@ const Home = ({ navigation }) => {
                     </Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity
-                    style={{
-                        marginTop: SIZES.padding * 2,
-                        height: 60,
-                        width: 450,
-                        backgroundColor: "#333",
-                        borderRadius: SIZES.radius / 1,
-                        borderLeftColor: COLORS.white,
-                        borderBottomWidth: 1,
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                    }}
-                    onPress={() => console.log("botao1")}
-                >
-                    <Text style={{
-
-                        color: COLORS.white,
-                        color: COLORS.white, ...FONTS.h1
-                    }}>
-                        Transferência entre Perfís
-                    </Text>
-                </TouchableOpacity>
 
                 <TouchableOpacity
                     style={{

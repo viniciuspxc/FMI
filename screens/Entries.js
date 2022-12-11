@@ -6,37 +6,63 @@ import {
     TouchableOpacity,
     KeyboardAvoidingView,
     ScrollView,
-    Alert
+    Alert,
+    Switch
 } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import { COLORS, SIZES, FONTS, icons, images, Profiles, styles } from "../constants";
+
 import app from "../src/config/firebase";
-import { getFirestore, setDoc, doc } from "firebase/firestore";
+import { getFirestore, getDoc, setDoc, doc, updateDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 const Entries = ({ navigation }) => {
     const [valor, setValor] = React.useState(0)
     const [data, setData] = React.useState("")
     const [tipo, setTipo] = React.useState("")
-    const [recorrencia, setRecorrencia] = React.useState(false)
-    const [parcelamento, setParcelamento] = React.useState(false)
-    const [atraso, setAtraso] = React.useState(false)
+    const [saldo, setSaldo] = React.useState(0)
+    const [isRecorrencia, setRecorrencia] = React.useState(false)
+    const toggleRecorrencia = () => { setRecorrencia(previousState => !previousState) }
+    const [isParcelamento, setParcelamento] = React.useState(false)
+    const toggleParcelamento = () => { setParcelamento(previousState => !previousState) }
+    const [isAtraso, setAtraso] = React.useState(false)
+    const toggleAtraso = () => { setAtraso(previousState => !previousState) }
 
     const firestore = getFirestore();
     const auth = getAuth();
 
     const lançar = async () => {
-        if (valor == 0 | data == "" | tipo == "") {
+        if (valor == 0.0 | data == "" | tipo == "") {
             Alert.alert("Inválido!", "Preencha todos os campos!")
         } else {
             await setDoc(doc(firestore, "users", auth.currentUser.uid, "Lançamentos", tipo), {
-                valor: valor,
-                data: data,
+                value: valor,
+                label: 'lançamento',
+                currency: 'R$',
+                date: data,
                 tipo: tipo,
-                recorrencia: recorrencia,
-                parcelamento: parcelamento,
-                atraso: atraso
+                recorrencia: isRecorrencia,
+                parcelamento: isParcelamento,
+                atraso: isAtraso,
+                type: 0
             });
+
+            const docRef = doc(firestore, "users", auth.currentUser.uid);
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+                setSaldo(docSnap.data().saldo)
+            } else {
+                console.log("No such document!");
+            }
+
+            const novoSaldo = parseInt(saldo + valor);
+
+            await updateDoc(doc(firestore, "users", auth.currentUser.uid), {
+                saldo: novoSaldo
+            });
+
+            navigation.navigate('Home')
         }
     }
 
@@ -122,65 +148,68 @@ const Entries = ({ navigation }) => {
                     />
                 </View>
 
-                <View style={{ marginTop: SIZES.padding * 2 }}>
+                <View style={styles.SwitchView}>
                     <Text style={{ color: COLORS.white, ...FONTS.h1 }}>
                         Recorrência?
                     </Text>
-                    <TextInput
-                        onChangeText={setRecorrencia}
-                        value={recorrencia}
-                        style={{
-                            marginVertical: SIZES.padding,
-                            borderBottomColor: COLORS.white,
-                            borderBottomWidth: 1,
-                            height: 40,
-                            color: COLORS.white,
-                            ...FONTS.h2
-                        }}
-                        selectionColor={COLORS.white}
-                    />
+                    <View style={{
+                        marginStart: SIZES.padding * 10, marginTop: SIZES.padding * 1, alignItems: 'center',
+                        justifyContent: 'center'
+                    }}>
+                        <Text style={{ color: COLORS.white, ...FONTS.h1 }}>
+                            {isRecorrencia ? 'Sim' : 'Não'}
+                        </Text>
+                        <Switch
+                            style={{ transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }] }}
+                            trackColor={{ false: 'darkred', true: 'green' }}
+                            thumbColor={isRecorrencia ? 'grey' : 'white'}
+                            onValueChange={toggleRecorrencia}
+                            value={isRecorrencia}
+                        />
+                    </View>
                 </View>
 
-                <View style={{ marginTop: SIZES.padding * 2 }}>
+                <View style={styles.SwitchView}>
                     <Text style={{ color: COLORS.white, ...FONTS.h1 }}>
-                        Parcerlamento?
+                        Parcelamento?
                     </Text>
-                    <TextInput
-                        onChangeText={setParcelamento}
-                        value={parcelamento}
-                        style={{
-                            marginVertical: SIZES.padding,
-                            borderBottomColor: COLORS.white,
-                            borderBottomWidth: 1,
-                            height: 40,
-                            color: COLORS.white,
-                            ...FONTS.h2
-                        }}
-                        selectionColor={COLORS.white}
-                    />
+                    <View style={{
+                        marginStart: SIZES.padding * 10, marginTop: SIZES.padding * 1, alignItems: 'center',
+                        justifyContent: 'center'
+                    }}>
+                        <Text style={{ color: COLORS.white, ...FONTS.h1 }}>
+                            {isParcelamento ? 'Sim' : 'Não'}
+                        </Text>
+                        <Switch
+                            style={{ transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }] }}
+                            trackColor={{ false: 'darkred', true: 'green' }}
+                            thumbColor={isParcelamento ? 'grey' : 'white'}
+                            onValueChange={toggleParcelamento}
+                            value={isParcelamento}
+                        />
+                    </View>
                 </View>
 
-                <View style={{ marginTop: SIZES.padding * 2 }}>
+                <View style={styles.SwitchView}>
                     <Text style={{ color: COLORS.white, ...FONTS.h1 }}>
                         Em Atraso?
                     </Text>
-                    <TextInput
-                        onChangeText={setAtraso}
-                        value={atraso}
-                        style={{
-                            marginVertical: SIZES.padding,
-                            borderBottomColor: COLORS.white,
-                            borderBottomWidth: 1,
-                            height: 40,
-                            color: COLORS.white,
-                            ...FONTS.h2
-                        }}
-                        selectionColor={COLORS.white}
-                    />
+                    <View style={{
+                        marginStart: SIZES.padding * 10, marginTop: SIZES.padding * 1, alignItems: 'center',
+                        justifyContent: 'center'
+                    }}>
+                        <Text style={{ color: COLORS.white, ...FONTS.h1 }}>
+                            {isAtraso ? 'Sim' : 'Não'}
+                        </Text>
+                        <Switch
+                            style={{ transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }] }}
+                            trackColor={{ false: 'darkred', true: 'green' }}
+                            thumbColor={isAtraso ? 'grey' : 'white'}
+                            onValueChange={toggleAtraso}
+                            value={isAtraso}
+                        />
+                    </View>
                 </View>
-
-
-
             </View>
         )
     }

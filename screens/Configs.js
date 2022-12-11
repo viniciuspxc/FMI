@@ -3,11 +3,6 @@ import {
     View,
     Text,
     TouchableOpacity,
-    TouchableWithoutFeedback,
-    Image,
-    TextInput,
-    FlatList,
-    Modal,
     KeyboardAvoidingView,
 } from "react-native"
 import { LinearGradient } from 'expo-linear-gradient'
@@ -34,9 +29,7 @@ const Configs = ({ navigation }) => {
 
         if (docSnap.exists()) {
             setMoeda(docSnap.data().moeda)
-            console.log(docSnap.data().moeda)
         } else {
-            // doc.data() will be undefined in this case
             console.log("No such document!");
         }
     }
@@ -100,25 +93,14 @@ const Configs = ({ navigation }) => {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    style={styles.HomeButton}
-                    onPress={() => navigation.navigate("AddSharedProfile")}
-                >
-                    <Text style={styles.TextHomeButton}>
-                        Adicionar Conta Compartilhada
-                    </Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    style={styles.HomeButton}
+                    style={{flex: 1}}
                     onPress={() => navigation.navigate("EditProfile")}
                 >
                     <Text style={styles.TextHomeButton}>
                         Editar Perfís
                     </Text>
                 </TouchableOpacity>
-
             </View>
-
         )
     }
 

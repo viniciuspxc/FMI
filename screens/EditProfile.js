@@ -48,9 +48,9 @@ const EditProfile = ({ navigation }) => {
                     }}
                 />
                 <View>
-                    <Text style={styles.EditProfileList}>  Nome: {data.name}</Text>
-                    <Text style={styles.EditProfileList}>  Saldo: {data.value}</Text>
-                    <Text style={styles.EditProfileList}>  Moeda: {data.type}</Text>
+                    <Text style={styles.list}>  Nome: {data.name}</Text>
+                    <Text style={styles.list}>  Saldo: {data.value}</Text>
+                    <Text style={styles.list}>  Moeda: {data.type}</Text>
                 </View>
             </TouchableOpacity>
 

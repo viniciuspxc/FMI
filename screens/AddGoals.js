@@ -2,19 +2,42 @@ import React from "react";
 import {
     View,
     Text,
-    StyleSheet,
     TextInput,
-    FlatList,
     TouchableOpacity,
-    onPressHandler,
     KeyboardAvoidingView,
-    ScrollView
-
+    ScrollView,
+    Alert
 } from "react-native"
 import { LinearGradient } from 'expo-linear-gradient'
 import { COLORS, SIZES, FONTS, icons, images, Profiles, styles } from "../constants"
 
-const ProfileTransfer = ({ navigation }) => {
+import app from "../src/config/firebase";
+import { getFirestore, setDoc, doc } from "firebase/firestore"
+import { getAuth } from "firebase/auth";
+
+const AddGoals = ({ navigation }) => {
+    const [tipo, setTipo] = React.useState('')
+    const [valor, setValor] = React.useState(0);
+    const [data, setData] = React.useState('');
+    const [descricao, setDescricao] = React.useState('');
+
+    const firestore = getFirestore();
+    const auth = getAuth();
+
+    const adicionar = async () => {
+        if (valor == 0 | data == "" | tipo == "") {
+            Alert.alert("Inválido!", "Preencha todos os campos!")
+        } else {
+            await setDoc(doc(firestore, "users", auth.currentUser.uid, "Metas", tipo), {
+                value: valor,
+                currency: 'R$',
+                date: data,
+                descricao: descricao
+            });
+
+            navigation.navigate('Home')
+        }
+    }
 
     function renderHeader() {
         return (
@@ -22,12 +45,17 @@ const ProfileTransfer = ({ navigation }) => {
                 <Text style={{
                     color: COLORS.white, ...FONTS.largeTitle
                 }}>
-                    Transferência entre Perfís
+                    Adicionar Metas
                 </Text>
             </View>
         )
     }
 
+    function renderSwitch() {
+        return (
+            <Text>t</Text>
+        )
+    }
 
     function renderEntries() {
         return (
@@ -37,114 +65,57 @@ const ProfileTransfer = ({ navigation }) => {
                     marginHorizontal: SIZES.padding * 4,
                 }}
             >
+                <View style={{ marginTop: SIZES.padding * 2 }}>
+                    <Text style={{ color: COLORS.white, ...FONTS.h1 }}>
+                        Título:
+                    </Text>
+                    <TextInput
+                        onChangeText={setTipo}
+                        value={tipo}
+                        style={styles.TextInput}
+                        selectionColor={COLORS.white}
+                    />
+                </View>
 
                 <View style={{ marginTop: SIZES.padding * 2 }}>
                     <Text style={{ color: COLORS.white, ...FONTS.h1 }}>
                         Valor:
                     </Text>
                     <TextInput
-                        style={{
-                            marginVertical: SIZES.padding,
-                            borderBottomColor: COLORS.white,
-                            borderBottomWidth: 1,
-                            height: 40,
-                            color: COLORS.white,
-                            ...FONTS.h2
-                        }}
+                        keyboardType="decimal-pad"
+                        onChangeText={setValor}
+                        value={valor}
+                        style={styles.TextInput}
                         selectionColor={COLORS.white}
                     />
                 </View>
-
-
 
                 <View style={{ marginTop: SIZES.padding * 2 }}>
                     <Text style={{ color: COLORS.white, ...FONTS.h1 }}>
                         Data:
                     </Text>
                     <TextInput
-                        style={{
-                            marginVertical: SIZES.padding,
-                            borderBottomColor: COLORS.white,
-                            borderBottomWidth: 1,
-                            height: 40,
-                            color: COLORS.white,
-                            ...FONTS.h2
-                        }}
+                        onChangeText={setData}
+                        value={data}
+                        style={styles.TextInput}
                         selectionColor={COLORS.white}
                     />
                 </View>
 
                 <View style={{ marginTop: SIZES.padding * 2 }}>
                     <Text style={{ color: COLORS.white, ...FONTS.h1 }}>
-                        Tipo:
+                        Descrição:
                     </Text>
                     <TextInput
-                        style={{
-                            marginVertical: SIZES.padding,
-                            borderBottomColor: COLORS.white,
-                            borderBottomWidth: 1,
-                            height: 40,
-                            color: COLORS.white,
-                            ...FONTS.h2
-                        }}
+                        onChangeText={setDescricao}
+                        value={descricao}
+                        style={styles.TextInput}
                         selectionColor={COLORS.white}
                     />
                 </View>
-
-                <View style={{ marginTop: SIZES.padding * 2 }}>
-                    <Text style={{ color: COLORS.white, ...FONTS.h1 }}>
-                        Recorrência?
-                    </Text>
-                    <TextInput
-                        style={{
-                            marginVertical: SIZES.padding,
-                            borderBottomColor: COLORS.white,
-                            borderBottomWidth: 1,
-                            height: 40,
-                            color: COLORS.white,
-                            ...FONTS.h2
-                        }}
-                        selectionColor={COLORS.white}
-                    />
-                </View>
-
-                <View style={{ marginTop: SIZES.padding * 2 }}>
-                    <Text style={{ color: COLORS.white, ...FONTS.h1 }}>
-                        Parcerlamento?
-                    </Text>
-                    <TextInput
-                        style={{
-                            marginVertical: SIZES.padding,
-                            borderBottomColor: COLORS.white,
-                            borderBottomWidth: 1,
-                            height: 40,
-                            color: COLORS.white,
-                            ...FONTS.h2
-                        }}
-                        selectionColor={COLORS.white}
-                    />
-                </View>
-
-                <View style={{ marginTop: SIZES.padding * 2 }}>
-                    <Text style={{ color: COLORS.white, ...FONTS.h1 }}>
-                        Em Atraso?
-                    </Text>
-                    <TextInput
-                        style={{
-                            marginVertical: SIZES.padding,
-                            borderBottomColor: COLORS.white,
-                            borderBottomWidth: 1,
-                            height: 40,
-                            color: COLORS.white,
-                            ...FONTS.h2
-                        }}
-                        selectionColor={COLORS.white}
-                    />
-                </View>
-
-
 
             </View>
+
         )
     }
 
@@ -165,13 +136,13 @@ const ProfileTransfer = ({ navigation }) => {
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}
-                    onPress={() => console.log("Entries")}
+                    onPress={adicionar}
                 >
                     <Text style={{
                         color: COLORS.white,
                         color: COLORS.white, ...FONTS.h1
                     }}>
-                        Transferir
+                        Adicionar
                     </Text>
                 </TouchableOpacity>
             </View>
@@ -189,6 +160,7 @@ const ProfileTransfer = ({ navigation }) => {
             >
                 <ScrollView>
                     {renderHeader()}
+                    {renderSwitch()}
                     {renderEntries()}
                     {renderButton()}
 
@@ -198,4 +170,4 @@ const ProfileTransfer = ({ navigation }) => {
     )
 }
 
-export default ProfileTransfer;
+export default AddGoals;
