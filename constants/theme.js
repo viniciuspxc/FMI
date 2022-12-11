@@ -92,7 +92,7 @@ export const styles = StyleSheet.create({
     income:{
         fontSize: 25,
         color: COLORS.white,
-        height: 40,
+        //height: 40,
         backgroundColor: "#006b15",
         borderRadius: 20,
         alignItems: 'center',
@@ -101,7 +101,7 @@ export const styles = StyleSheet.create({
     outcome:{
         fontSize: 25,
         color: COLORS.white,
-        height: 40,
+        //height: 40,
         backgroundColor: "#6b0000",
         borderRadius: 20,
         alignItems: 'center',

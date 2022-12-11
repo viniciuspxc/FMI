@@ -13,7 +13,7 @@ const EntriesList = [
         label:'lançamento',
         currency: 'R$',
         value: '350,00',
-        date: '17/09/2022',
+        date: '20/09/2022',
         type: 0
     },
     {
@@ -21,7 +21,7 @@ const EntriesList = [
         label:'entrada',
         currency: 'R$',
         value: '1600,10',
-        date: '17/09/2022',
+        date: '25/09/2022',
         type: 1
     }
 ]

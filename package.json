@@ -9,12 +9,16 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@chartiful/react-native-chart-builder": "^0.1.8",
+    "@chartiful/react-native-line-graph": "^0.1.2",
     "@react-navigation/stack": "^6.3.8",
     "expo": "~47.0.8",
     "expo-linear-gradient": "~12.0.1",
     "expo-status-bar": "~1.4.2",
     "react": "18.1.0",
     "react-native": "0.70.5",
+    "react-native-chart-kit": "^6.12.0",
+    "react-native-svg": "13.4.0",
     "react-native-switch-selector": "^2.3.0"
   },
   "devDependencies": {

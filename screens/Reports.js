@@ -9,10 +9,13 @@ import{
     FlatList,
     Modal,
     KeyboardAvoidingView,
+    Dimensions
 } from "react-native"
 import { LinearGradient } from 'expo-linear-gradient'
 import { COLORS, SIZES, FONTS, icons, images, Profiles, styles, EntriesList } from "../constants"
-
+import {
+    LineChart,BarChart,PieChart,ProgressChart,ContributionGraph,StackedBarChart
+  } from "react-native-chart-kit";
 
 function renderHeader(){
     return(
@@ -25,21 +28,59 @@ function renderHeader(){
     )
 }
 
-function renderGraph(){
+const data = {
+    labels: ["January", "February", "March", "April", "May", "June"],
+    datasets: [
+      {
+        data: [20, 45, 28, 80, 99, 43],
+        color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+        strokeWidth: 2 // optional
+      }
+    ],
+    legend: ["Rainy Days"] // optional
+  };
+
+function renderGraph({data}){
     return(
-        <View style={{alignItems: 'center',
-        justifyContent: 'center'}}>
-            
-            <Image
-                    source={icons.wallet}
-                    resizeMode="contain"
-                    style={{
-                        width: 200,
-                        height: 200,
-                        tintColor: COLORS.white,
-                    }}
-                />
-        </View>
+        <View style={{marginHorizontal: 10, alignItems: 'center',
+        }}>
+  <LineChart
+    data={{
+        labels: ["17/09/2022", "20/09/2022", "25/09/2022"],
+        datasets: [
+          {
+            data: [-300.00, -650.00, 950.1],
+            color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`, // optional
+          }
+        ],
+    }}
+    fromZero={true}
+    width={500} // from react-native
+    height={300}
+    yAxisLabel="R$"
+    yAxisInterval={1} // optional, defaults to 1
+    chartConfig={{
+      backgroundColor: "#000",
+      backgroundGradientFrom: "#222",
+      backgroundGradientTo: "#222",
+      decimalPlaces: 2, // optional, defaults to 2dp
+      color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+      labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+      style: {
+        borderRadius: 20
+      },
+      propsForDots: {
+        r: "6",
+        strokeWidth: "3",
+        stroke: "#000"
+      }
+    }}
+    style={{
+      marginVertical: 8,
+      borderRadius: 16
+    }}
+  />
+</View>
     )
 }
 
@@ -55,7 +96,7 @@ function RenderMovements( {data}){
         }}
         onPress={() => console.log("Abrir lançamento id: "+data.id)}
         >
-            <Text style={styles.income}>   {data.id}. {data.label} {data.currency} {data.value}   </Text>
+            <Text style={styles.income}>   {data.id}. {data.label} {data.currency} {data.value}  {'\n'}   {data.date}  </Text>
         </TouchableOpacity>
     ) 
     else 
@@ -69,7 +110,7 @@ function RenderMovements( {data}){
         }}
         onPress={() => console.log("Abrir lançamento id: "+data.id)}
         >
-            <Text style={styles.outcome}>   {data.id}. {data.label} {data.currency} {data.value}   </Text>
+            <Text style={styles.outcome}>   {data.id}. {data.label} {data.currency} {data.value}  {'\n'}   {data.date}  </Text>
         </TouchableOpacity>
     )
 }
@@ -85,7 +126,7 @@ const Reports = () => {
         >
         <View style={{marginHorizontal:2}}>
             {renderHeader()}
-            {renderGraph()}
+            {renderGraph(EntriesList.EntriesList)}
             
             <Text style={{
         color: COLORS.white, ...FONTS.title,marginStart: SIZES.padding*2}}>
