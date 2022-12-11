@@ -9,7 +9,9 @@ import{
     FlatList,
     Modal,
     KeyboardAvoidingView,
-    ScrollView
+    ScrollView,
+    toFixed
+    
 } from "react-native"
 import { LinearGradient } from 'expo-linear-gradient'
 
@@ -17,6 +19,14 @@ import { COLORS, SIZES, FONTS, icons, images, Profiles, styles } from "../consta
 
 const Home = ({navigation}) => {
     const [modalVisible, setModalVisible] = React.useState(false)
+    const[isProfile, setProfile] = React.useState('Selecionar Perfil');
+    const[isSaldo, setSaldo] = React.useState('###');
+    const[isCurrency, setCurrency] = React.useState();
+    const toggleProfile = ({data}) =>{
+    setModalVisible(false)
+    setCurrency(data.currency);
+    setSaldo(String(data.value.toFixed(2)))
+    setProfile(data.name)}
 
     function renderProfile() {
         return (
@@ -45,7 +55,7 @@ const Home = ({navigation}) => {
                     marginLeft: SIZES.padding * 1.5, 
                     color: COLORS.white,
                      ...FONTS.h1 }}>
-                        Perfil
+                        {isProfile}
                 </Text>
             </TouchableOpacity>
         )
@@ -82,8 +92,9 @@ const Home = ({navigation}) => {
                         <Text style={styles.TextHomeButton}
                             selectionColor={COLORS.white}
                         >
-                        VALOR
+                        {isCurrency} {isSaldo}
                         </Text>
+                        
                    </View>
                 </TouchableOpacity>
 
@@ -145,7 +156,7 @@ const Home = ({navigation}) => {
                 alignItems: 'center',
                 justifyContent: 'center',                      
             }}
-            onPress={() => console.log("Trocar perfil: "+data.name)}
+            onPress={() => toggleProfile({data})}
             >
                 <Image
                     source={icons.user}
@@ -197,17 +208,14 @@ const Home = ({navigation}) => {
                                 <FlatList
                                     data={Profiles.Profiles}
                                     keyExtractor={(item) => String(item.id)}
+                                    
                                     showsVerticalScrollIndicator={false}
                                     renderItem={ ({item}) => <RenderProfiles data={item}
                                     style={styles.list}
                                     />}
                                 >
-                                    <TouchableOpacity>
-    
-                                    </TouchableOpacity>
                                 </FlatList>
-                                      
-                                
+                                                        
                                 <TouchableOpacity
                                     style={styles.HomeButton}
                                     onPress={() => navigation.navigate("AddProfile")}
@@ -232,7 +240,8 @@ return(
             colors={["#000", "#222"]}
             style={{ flex: 1 }}
         >
-            <ScrollView style={{ flex: 1 }}>
+            <ScrollView style={{ flex: 1 }}
+            >   
                 {renderProfile()}
                 {renderButton()}
 

@@ -9,6 +9,7 @@ import Reports from "./Reports";
 import ProfileTransfer from "./ProfileTransfer";
 import AddSharedProfile from "./AddSharedProfile";
 import EditProfile from "./EditProfile";
+import AddGoals from "./AddGoals";
 
 export {
     Start,
@@ -21,5 +22,6 @@ export {
     Reports,
     ProfileTransfer,
     AddSharedProfile,
-    EditProfile
+    EditProfile,
+    AddGoals
 }

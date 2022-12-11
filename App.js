@@ -14,6 +14,7 @@ import {Reports} from "./screens"
 import {ProfileTransfer} from "./screens"
 import {AddSharedProfile} from "./screens"
 import {EditProfile} from "./screens"
+import {AddGoals} from "./screens"
 
 
 const theme = {
@@ -46,6 +47,7 @@ const App = () => {
             <Stack.Screen name="ProfileTransfer" component={ProfileTransfer} />
             <Stack.Screen name="AddSharedProfile" component={AddSharedProfile} />
             <Stack.Screen name="EditProfile" component={EditProfile} />
+            <Stack.Screen name="AddGoals" component={AddGoals} />
             </Stack.Navigator>
     </NavigationContainer>
 )

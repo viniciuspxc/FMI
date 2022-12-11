@@ -13,6 +13,7 @@ import{
 import { LinearGradient } from 'expo-linear-gradient'
 import { COLORS, SIZES, FONTS, icons, images, Profiles, Categories, styles, GoalsList } from "../constants"
 
+const Goals = ({navigation}) => {
 
 function renderHeader(){
     return(
@@ -59,7 +60,7 @@ function renderButton() {
                     alignItems: 'center',
                     justifyContent: 'center'
                 }}
-                onPress={() => console.log("Adicionar Metas")}
+                onPress={() => navigation.navigate("AddGoals")}
             >
                 <Text style={{ 
                     color: COLORS.white,
@@ -72,7 +73,7 @@ function renderButton() {
     )
 }
 
-const Goals = () => {
+
     return(
         <KeyboardAvoidingView
     style={{ flex: 1 }}
