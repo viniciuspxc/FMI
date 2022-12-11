@@ -72,6 +72,21 @@ export const styles = StyleSheet.create({
         marginTop: SIZES.padding * 5,
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    TextInput: {
+        marginVertical: SIZES.padding,
+        borderBottomColor: COLORS.white,
+        borderBottomWidth: 1,
+        height: 40,
+        color: COLORS.white,
+        ...FONTS.h2
+    },
+    SwitchView: {
+        justifyContent: 'space-between',
+        marginEnd: 40,
+        marginTop: SIZES.padding * 1,
+        alignItems: 'center',
+        flexDirection: 'row',
     }
 });
 

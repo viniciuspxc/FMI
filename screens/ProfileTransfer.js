@@ -2,43 +2,19 @@ import React from "react";
 import {
     View,
     Text,
+    StyleSheet,
     TextInput,
+    FlatList,
     TouchableOpacity,
+    onPressHandler,
     KeyboardAvoidingView,
-    ScrollView,
-    Alert
-} from "react-native";
-import { LinearGradient } from 'expo-linear-gradient';
-import { COLORS, SIZES, FONTS, icons, images, Profiles, styles } from "../constants";
-import app from "../src/config/firebase";
-import { getFirestore, setDoc, doc } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+    ScrollView
 
-const Entries = ({ navigation }) => {
-    const [valor, setValor] = React.useState(0)
-    const [data, setData] = React.useState("")
-    const [tipo, setTipo] = React.useState("")
-    const [recorrencia, setRecorrencia] = React.useState(false)
-    const [parcelamento, setParcelamento] = React.useState(false)
-    const [atraso, setAtraso] = React.useState(false)
+} from "react-native"
+import { LinearGradient } from 'expo-linear-gradient'
+import { COLORS, SIZES, FONTS, icons, images, Profiles, styles } from "../constants"
 
-    const firestore = getFirestore();
-    const auth = getAuth();
-
-    const lançar = async () => {
-        if (valor == 0 | data == "" | tipo == "") {
-            Alert.alert("Inválido!", "Preencha todos os campos!")
-        } else {
-            await setDoc(doc(firestore, "users", auth.currentUser.uid, "Lançamentos", tipo), {
-                valor: valor,
-                data: data,
-                tipo: tipo,
-                recorrencia: recorrencia,
-                parcelamento: parcelamento,
-                atraso: atraso
-            });
-        }
-    }
+const ProfileTransfer = ({ navigation }) => {
 
     function renderHeader() {
         return (
@@ -46,7 +22,7 @@ const Entries = ({ navigation }) => {
                 <Text style={{
                     color: COLORS.white, ...FONTS.largeTitle
                 }}>
-                    Lançamentos e Despesas
+                    Transferência entre Perfís
                 </Text>
             </View>
         )
@@ -67,9 +43,6 @@ const Entries = ({ navigation }) => {
                         Valor:
                     </Text>
                     <TextInput
-                        onChangeText={setValor}
-                        value={valor}
-                        keyboardType="decimal-pad"
                         style={{
                             marginVertical: SIZES.padding,
                             borderBottomColor: COLORS.white,
@@ -89,8 +62,6 @@ const Entries = ({ navigation }) => {
                         Data:
                     </Text>
                     <TextInput
-                        onChangeText={setData}
-                        value={data}
                         style={{
                             marginVertical: SIZES.padding,
                             borderBottomColor: COLORS.white,
@@ -108,8 +79,6 @@ const Entries = ({ navigation }) => {
                         Tipo:
                     </Text>
                     <TextInput
-                        onChangeText={setTipo}
-                        value={tipo}
                         style={{
                             marginVertical: SIZES.padding,
                             borderBottomColor: COLORS.white,
@@ -127,8 +96,6 @@ const Entries = ({ navigation }) => {
                         Recorrência?
                     </Text>
                     <TextInput
-                        onChangeText={setRecorrencia}
-                        value={recorrencia}
                         style={{
                             marginVertical: SIZES.padding,
                             borderBottomColor: COLORS.white,
@@ -146,8 +113,6 @@ const Entries = ({ navigation }) => {
                         Parcerlamento?
                     </Text>
                     <TextInput
-                        onChangeText={setParcelamento}
-                        value={parcelamento}
                         style={{
                             marginVertical: SIZES.padding,
                             borderBottomColor: COLORS.white,
@@ -165,8 +130,6 @@ const Entries = ({ navigation }) => {
                         Em Atraso?
                     </Text>
                     <TextInput
-                        onChangeText={setAtraso}
-                        value={atraso}
                         style={{
                             marginVertical: SIZES.padding,
                             borderBottomColor: COLORS.white,
@@ -202,13 +165,13 @@ const Entries = ({ navigation }) => {
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}
-                    onPress={lançar}
+                    onPress={() => console.log("Entries")}
                 >
                     <Text style={{
                         color: COLORS.white,
                         color: COLORS.white, ...FONTS.h1
                     }}>
-                        Lançar
+                        Transferir
                     </Text>
                 </TouchableOpacity>
             </View>
@@ -235,4 +198,4 @@ const Entries = ({ navigation }) => {
     )
 }
 
-export default Entries;
+export default ProfileTransfer;

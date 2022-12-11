@@ -8,7 +8,8 @@ import {
     TextInput,
     Modal,
     KeyboardAvoidingView,
-    Platform
+    Platform,
+    Alert
 } from "react-native"
 import { LinearGradient } from 'expo-linear-gradient'
 
@@ -17,11 +18,14 @@ import { NavigationContainer } from "@react-navigation/native";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 
 import { app } from "../src/config/firebase";
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, sendPasswordResetEmail } from "firebase/auth";
 
 const Start = ({ navigation }) => {
     const [showPassword, setShowPassword] = React.useState(false)
     const [modalVisible, setModalVisible] = React.useState(false)
+    const [email, setEmail] = React.useState('');
+    const [emailRecuperacao, setEmailRecuperacao] = React.useState('');
+    const [senha, setSenha] = React.useState('');
 
     const auth = getAuth();
 
@@ -33,9 +37,6 @@ const Start = ({ navigation }) => {
         })
     })
 
-    const [email, setEmail] = React.useState('');
-    const [senha, setSenha] = React.useState('');
-
     const acessarConta = () => {
         signInWithEmailAndPassword(auth, email, senha)
             .then((userCredential) => {
@@ -46,6 +47,12 @@ const Start = ({ navigation }) => {
                 console.log(error.code);
                 console.log(error.message);
             });
+    }
+
+    const resetarSenha = () => {
+        sendPasswordResetEmail(auth, emailRecuperacao)
+        .then(Alert.alert("Redefinir senha",
+        "Um link para redefinição de senha foi enviado para o seu e-mail."))
     }
 
     //Logotipo e titulo
@@ -249,6 +256,8 @@ const Start = ({ navigation }) => {
                                     Insira seu e-mail para recuperação:
                                 </Text>
                                 <TextInput
+                                    onChangeText={setEmailRecuperacao}
+                                    value={emailRecuperacao}
                                     style={{
                                         marginVertical: SIZES.padding,
                                         borderBottomColor: COLORS.black,
@@ -270,7 +279,7 @@ const Start = ({ navigation }) => {
                                     alignItems: 'center',
                                     justifyContent: 'center'
                                 }}
-                                onPress={() => console.log("Enviar")}
+                                onPress={resetarSenha}
                             >
                                 <Text style={{
                                     color: COLORS.white,

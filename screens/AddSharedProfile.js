@@ -3,22 +3,25 @@ import {
     View,
     Text,
     TouchableOpacity,
+    TouchableWithoutFeedback,
     Image,
     TextInput,
+    FlatList,
+    Modal,
     KeyboardAvoidingView,
 } from "react-native"
 import { LinearGradient } from 'expo-linear-gradient'
-import { COLORS, SIZES, FONTS, icons, images, styles } from "../constants"
+import { COLORS, SIZES, FONTS, icons, images, Profiles, Categories, styles, GoalsList } from "../constants"
 
-const AddProfile = ({ navigation }) => {
+const AddSharedProfile = () => {
 
     function renderHeader() {
         return (
-            <View
-                style={styles.headerView}
-            >
-                <Text style={{ color: COLORS.white, ...FONTS.largeTitle }}>
-                    Adicionar Perfil
+            <View style={styles.headerView}>
+                <Text style={{
+                    color: COLORS.white, ...FONTS.largeTitle
+                }}>
+                    Adicionar Conta Compartilhada
                 </Text>
             </View>
         )
@@ -32,9 +35,10 @@ const AddProfile = ({ navigation }) => {
                     marginHorizontal: SIZES.padding * 4,
                 }}
             >
+
                 <View style={{ marginTop: SIZES.padding * 2 }}>
                     <Text style={{ color: COLORS.white, ...FONTS.h1 }}>
-                        Nome do Perfil:
+                        Usuário:
                     </Text>
                     <TextInput
                         style={{
@@ -51,7 +55,7 @@ const AddProfile = ({ navigation }) => {
 
                 <View style={{ marginTop: SIZES.padding * 2 }}>
                     <Text style={{ color: COLORS.white, ...FONTS.h1 }}>
-                        Moeda do Perfil::
+                        E-mail:
                     </Text>
                     <TextInput
                         style={{
@@ -66,41 +70,6 @@ const AddProfile = ({ navigation }) => {
                     />
                 </View>
 
-                <View style={{ marginTop: SIZES.padding * 2 }}>
-                    <Text style={{ color: COLORS.white, ...FONTS.h1 }}>
-                        Saldo:
-                    </Text>
-                    <TextInput
-                        style={{
-                            marginVertical: SIZES.padding,
-                            borderBottomColor: COLORS.white,
-                            borderBottomWidth: 1,
-                            height: 40,
-                            color: COLORS.white,
-                            ...FONTS.h2
-                        }}
-                        selectionColor={COLORS.white}
-
-                    />
-                </View>
-
-                <View style={{ marginTop: SIZES.padding * 2 }}>
-                    <Text style={{ color: COLORS.white, ...FONTS.h1 }}>
-                        Descrição (Opcional):
-                    </Text>
-                    <TextInput
-                        style={{
-                            marginVertical: SIZES.padding,
-                            borderBottomColor: COLORS.white,
-                            borderBottomWidth: 1,
-                            height: 40,
-                            color: COLORS.white,
-                            ...FONTS.h2
-                        }}
-                        selectionColor={COLORS.white}
-
-                    />
-                </View>
             </View>
         )
     }
@@ -122,13 +91,13 @@ const AddProfile = ({ navigation }) => {
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}
-                    onPress={() => navigation.navigate("Home")}
+                    onPress={() => console.log("Adicionar Conta")}
                 >
                     <Text style={{
                         color: COLORS.white,
                         color: COLORS.white, ...FONTS.h1
                     }}>
-                        {'   Criar Perfil   '}
+                        {'   Adicionar Conta   '}
                     </Text>
                 </TouchableOpacity>
             </View>
@@ -136,7 +105,6 @@ const AddProfile = ({ navigation }) => {
         )
     }
 
-    // Background
     return (
         <KeyboardAvoidingView
             style={{ flex: 1 }}
@@ -154,4 +122,5 @@ const AddProfile = ({ navigation }) => {
         </KeyboardAvoidingView>
     )
 }
-export default AddProfile;
+
+export default AddSharedProfile;

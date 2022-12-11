@@ -30,26 +30,24 @@ const SignUp = ({navigation}) => {
     const [senhaConfirm, setSenhaConfirm] = React.useState('');
 
 
-    const criarConta = async () => {
+    const criarConta = () => {
         if(senha == senhaConfirm) {
             createUserWithEmailAndPassword(auth, email, senha)
-                .then((userCredencial) => {
+                .then(async (userCredencial) => {
+                    const firestore = getFirestore();
                     const user = userCredencial.user;
+
+                    await setDoc(doc(firestore, "users", user.uid), {
+                        nome: usuario,
+                        moeda: 'real',
+                        saldo: 0,
+                        descricao: ''
+                    });
                 })
                 .catch((error) => {
                     console.log(error.code);
                     console.log(error.message);
                 });
-
-            const firestore = getFirestore();
-
-            await setDoc(doc(firestore, usuario, usuario), {
-                nome: usuario,
-                moeda: 'real',
-                saldoInicial: 0,
-                descricao: ''
-            });
-
         } else {
            console.log("Senhas não coincidem")
         }

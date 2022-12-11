@@ -1,26 +1,46 @@
-import React from "react";
+import { LinearGradient } from 'expo-linear-gradient';
+import React, { useEffect } from "react";
 import {
-    View,
+    FlatList,
+    Image,
+    KeyboardAvoidingView,
+    Modal,
     Text,
     TouchableOpacity,
     TouchableWithoutFeedback,
-    Image,
-    Modal,
-    KeyboardAvoidingView,
-    FlatList
-} from "react-native"
-import { LinearGradient } from 'expo-linear-gradient'
+    View,
+    Alert
+} from "react-native";
 
-import app from "../src/config/firebase";
-import { getAuth, signOut } from "firebase/auth";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { doc, getDoc, getFirestore, collection } from "firebase/firestore";
 
-import { COLORS, SIZES, FONTS, icons, images, Profiles, RenderProfiles, styles } from "../constants"
+import { COLORS, FONTS, icons, Profiles, SIZES, styles } from "../constants";
 
 const Home = ({ navigation }) => {
     const [modalVisible, setModalVisible] = React.useState(false)
-    const [saldo, setSaldo] = React.useState(0)
+    const [titulo, setTitulo] = React.useState("")
+    const [saldo, setSaldo] = React.useState()
 
+    const firestore = getFirestore();
     const auth = getAuth();
+
+    useEffect(() => {
+        lerDados();
+    })
+
+    const lerDados = async () => {
+        const docRef = doc(firestore, "users", auth.currentUser.uid);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            setSaldo(docSnap.data().saldo)
+            setTitulo(docSnap.data().nome)
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+    }
 
     const deslogar = () => {
         signOut(auth);
@@ -55,7 +75,7 @@ const Home = ({ navigation }) => {
                     color: COLORS.white,
                     ...FONTS.h1
                 }}>
-                    Perfil
+                    {titulo}
                 </Text>
             </TouchableOpacity>
         )
@@ -79,7 +99,7 @@ const Home = ({ navigation }) => {
                         alignItems: 'center',
                         justifyContent: 'space-evenly'
                     }}
-                    onPress={() => console.log("Saldo")}
+                    onPress={lerDados}
                 >
                     <Text style={{
                         color: COLORS.white,
@@ -102,7 +122,7 @@ const Home = ({ navigation }) => {
                             }}
                             selectionColor={COLORS.white}
                         >
-                            VALOR
+                            {saldo}
                         </Text>
                     </View>
                 </TouchableOpacity>
@@ -119,7 +139,7 @@ const Home = ({ navigation }) => {
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}
-                    onPress={() => navigation.navigate("Entries")}
+                    onPress={() => navigation.navigate('Entries')}
                 >
                     <Text style={{
 
@@ -313,7 +333,7 @@ const Home = ({ navigation }) => {
                                 keyExtractor={(item) => String(item.id)}
                                 showsVerticalScrollIndicator={false}
                                 renderItem={({ item }) => <RenderProfiles data={item}
-                                    style={styles.list}
+                                style={styles.list}
                                 />}
                             >
                                 <TouchableOpacity>
